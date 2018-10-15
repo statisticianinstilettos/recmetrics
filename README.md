@@ -8,3 +8,5 @@ eaxample.ipynb contains examples of these plots and metrics in action for a simp
 
 ## Long Tail Plot
 
+![Long Tail Plot](/../<master>/images/long_tail.png?raw=true "Long Tail Plot")
+
