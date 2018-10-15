@@ -14,7 +14,7 @@ def LongTailPlot(df, item_id_column, interaction_type, percentage=None, x_labels
         column name identifying the item ids in the dataframe
     interaction_type: str
         type of user-item interactions
-        'purchases' or 'ratings' or 'clicks'
+        i.e. 'purchases', 'ratings' 'interactions', or 'clicks'
     percentage: float, default=None
         percent of volume to consider as the head (percent as a decimal)
         (if default=None no line will be plotted)
