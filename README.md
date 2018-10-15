@@ -4,7 +4,7 @@ This library contains useful metrics and plots for evalauting recommender system
 eaxample.ipynb contains examples of these plots and metrics in action for a simple popularity recommender. 
 
 ## Long Tail Plot
-<img src="images/long_tail.png" alt="Long Tail Plot" width=250>
+<img src="images/long_tail.png" alt="Long Tail Plot" width=400>
 
 ## Mar@K
 
