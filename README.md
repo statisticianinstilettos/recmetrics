@@ -1,5 +1,5 @@
 # recommender_metrics
-
+WIP!
 <img src="https://media.giphy.com/media/YAnpMSHcurJVS/giphy.gif" width=250>
 
 This library contains useful metrics and plots for evalauting recommender systems.
