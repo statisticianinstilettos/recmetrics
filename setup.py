@@ -6,6 +6,6 @@ setup(
     author='Claire Longo',
     author_email='longoclaire@gmail.com',
     packages=find_packages(),
-    package_dir={'tc_query': 'tc_query',
+    package_dir={'recommender_metrics': 'recommender_metrics'},
     description='metrics for recommender systems',
 )
