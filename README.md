@@ -1,5 +1,5 @@
 # recommender_metrics
-This library contains useful metrics and plots for evalauting recommender systems.
+This library contains useful metrics and plots for evaluating  recommender systems.
 
 The python notebook in this repo, `example.ipynb`, contains examples of these plots and metrics in action for a simple popularity recommender. 
 
