@@ -15,11 +15,12 @@ def coverage(predicted, catalog):
     Returns
     ----------
     coverage:
-        The coverage of the recommendations
+        The coverage of the recommendations as a percent
+        rounded to 2 decimal places
     """
     predicted_flattened = [p for sublist in predicted for p in sublist]
     unique_predictions = len(set(predicted_flattened))
-    coverage = unique_predictions/(len(catalog)* 1.0)
+    coverage = round(unique_predictions/(len(catalog)* 1.0)*100,2)
     return coverage
 
 def diversity(predicted):
