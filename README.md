@@ -1,7 +1,4 @@
 # recommender_metrics
-WIP!
-<img src="https://media.giphy.com/media/YAnpMSHcurJVS/giphy.gif" width=250>
-
 This library contains useful metrics and plots for evalauting recommender systems.
 
 eaxample.ipynb contains examples of these plots and metrics in action for a simple popularity recommender. 
@@ -16,3 +13,9 @@ eaxample.ipynb contains examples of these plots and metrics in action for a simp
 ## Diversity
 
 ## Serendipity
+
+# WIP!
+This repo is a work in progress. I will be continually adding metrics as I find them useful for evaluating recommendations. 
+
+<img src="https://media.giphy.com/media/YAnpMSHcurJVS/giphy.gif" width=150>
+
