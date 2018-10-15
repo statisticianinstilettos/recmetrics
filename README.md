@@ -1,6 +1,6 @@
 # recommender_metrics
 
-![](https://media.giphy.com/media/YAnpMSHcurJVS/giphy.gif)
+![](https://media.giphy.com/media/YAnpMSHcurJVS/giphy.gif=250x)
 
 This library contains useful metrics and plots for evalauting recommender systems.
 
@@ -8,5 +8,5 @@ eaxample.ipynb contains examples of these plots and metrics in action for a simp
 
 ## Long Tail Plot
 
-![Long Tail Plot](/../<master>/images/long_tail.png?raw=true "Long Tail Plot")
+![Long Tail Plot](images/long_tail.png?raw=true "Long Tail Plot")
 
