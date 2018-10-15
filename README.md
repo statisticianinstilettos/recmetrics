@@ -14,7 +14,7 @@ Mean Average Recall at K (Mar@k) measures the recall at the kth recommendations.
 Coverage is the percent of items that the recommender is able to recommend. 
 
 <img src="images/coverage.gif" alt="Coverage" width=400>
-Where `I` is the number of items the model recommends in the test data, and `N` is the total number of items in the training data.
+Where 'I' is the number of unique items the model recommends in the test data, and 'N' is the total number of unique items in the training data.
 
 
 ## Diversity
