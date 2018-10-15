@@ -8,7 +8,7 @@ The Long Tail plot is used to explore popularity patterns in user-item interacti
 <img src="images/long_tail.png" alt="Long Tail Plot" width=400>
 
 ## Mar@K
-Mean Average Recall at K (Mar@k) measures the recall at the kth recommendations. Mar@k considers the order of recommendations, and penalizes correct recommendations if based on the order of the recommendations. This metric is ideal for evaluating an ordered list of recommendations. Mean Average Precision at K (Map@k) is available in [here](https://github.com/benhamner/Metrics). 
+Mean Average Recall at K (Mar@k) measures the recall at the kth recommendations. Mar@k considers the order of recommendations, and penalizes correct recommendations if based on the order of the recommendations. Map@k and Mar@k are ideal for evaluating an ordered list of recommendations. Mean Average Precision at K (Map@k) is available in [here](https://github.com/benhamner/Metrics). 
 
 ## Coverage
 Coverage is the percent of items that the recommender is able to recommend. 
