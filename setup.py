@@ -6,6 +6,5 @@ setup(
     author='Claire Longo',
     author_email='longoclaire@gmail.com',
     packages=find_packages(),
-    package_dir={'recommender_metrics': 'src'},
     description='metrics for recommender systems',
 )
