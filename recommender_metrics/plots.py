@@ -1,11 +1,12 @@
 import pandas as pd
+import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
 def LongTailPlot(df, item_id_column, interaction_type, percentage=None, x_labels=True):
     """
-    Plots the Long Tail Plot for a user-item interaction dataset.
+    Plots the long tail for a user-item interaction dataset.
     ----------
     df: pandas dataframe
         user-item interaction dataframe
@@ -74,5 +75,102 @@ def LongTailPlot(df, item_id_column, interaction_type, percentage=None, x_labels
         ax.set(xticklabels=[])
     else:
         ax.set_xticklabels(labels = volume_df[item_id_column], rotation = 45, ha="right")
+
+    plt.show()
+
+
+def CoveragePlot(coverage_scores, model_names):
+    """
+    Plots the coverage for a set of models to compare.
+    ----------
+    coverage_scores: list
+        list of coverage scores in same order as model_names
+        example: [0.17, 0.25, 0.76]
+    model_names: list
+        list of model names in same order as coverage_scores
+        example: ['Model A', 'Model B', 'Model C']
+    Returns:
+    -------
+        A coverage plot
+    """
+    #create palette
+    recommender_palette = ["#ED2BFF", "#14E2C0", "#FF9F1C", "#5E2BFF","#FC5FA3"]
+    sns.set_palette(recommender_palette)
+
+    #make barplot
+    ax = sns.barplot(x=model_names, y=coverage_scores)
+
+    #set labels
+    ax.set_title('Catalog Coverage in %')
+    ax.set_ylabel('coverage')
+
+    plt.show()
+
+def MarkPlot(mark_scores, model_names, k_range):
+    """
+    Plots the mean average recall at k for a set of models to compare.
+    ----------
+    mark_scores: list of lists
+        list of list of mar@k scores over k. This lis is in same order as model_names
+        example: [[0.17, 0.25, 0.76],[0.2, 0.5, 0.74]]
+    model_names: list
+        list of model names in same order as coverage_scores
+        example: ['Model A', 'Model B']
+    k_range: list
+        list or array indeitifying all k values in order
+        example: [1,2,3,4,5,6,7,8,9,10]
+    Returns:
+    -------
+        A mar@k plot
+    """
+    #create palette
+    recommender_palette = ["#ED2BFF", "#14E2C0", "#FF9F1C", "#5E2BFF","#FC5FA3"]
+    sns.set_palette(recommender_palette)
+
+    #lineplot
+    mark_df = pd.DataFrame(np.column_stack(mark_scores), k_range, columns=model_names)
+    ax = sns.lineplot(data=mark_df)
+    plt.xticks(k_range)
+    plt.setp(ax.lines,linewidth=5)
+
+    #set labels
+    ax.set_title('Mean Average Recall at K (MAR@K) Comparison')
+    ax.set_ylabel('MAR@K')
+    ax.set_xlabel('K')
+
+    plt.show()
+
+
+def MapkPlot(mapk_scores, model_names, k_range):
+    """
+    Plots the mean average precision at k for a set of models to compare.
+    ----------
+    mapk_scores: list of lists
+        list of list of map@k scores over k. This lis is in same order as model_names
+        example: [[0.17, 0.25, 0.76],[0.2, 0.5, 0.74]]
+    model_names: list
+        list of model names in same order as coverage_scores
+        example: ['Model A', 'Model B']
+    k_range: list
+        list or array indeitifying all k values in order
+        example: [1,2,3,4,5,6,7,8,9,10]
+    Returns:
+    -------
+        A map@k plot
+    """
+    #create palette
+    recommender_palette = ["#ED2BFF", "#14E2C0", "#FF9F1C", "#5E2BFF","#FC5FA3"]
+    sns.set_palette(recommender_palette)
+
+    #lineplot
+    mapk_df = pd.DataFrame(np.column_stack(mapk_scores), k_range, columns=model_names)
+    ax = sns.lineplot(data=mapk_df)
+    plt.xticks(k_range)
+    plt.setp(ax.lines,linewidth=5)
+
+    #set labels
+    ax.set_title('Mean Average Recall at K (MAP@K) Comparison')
+    ax.set_ylabel('MAP@K')
+    ax.set_xlabel('K')
 
     plt.show()
