@@ -20,7 +20,7 @@ Where 'I' is the number of unique items the model recommends in the test data, a
 
 <img src="images/coverage_plot.gif" alt="Coverage Plot" width=400>
 
-## Item Level Precision and Recall
+## Item-Level Precision and Recall
 
 ## Diversity
 
