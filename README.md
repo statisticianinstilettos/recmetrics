@@ -10,7 +10,7 @@ The Long Tail plot is used to explore popularity patterns in user-item interacti
 ## Mar@K and Map@K
 Mean Average Recall at K (Mar@k) measures the recall at the kth recommendations. Mar@k considers the order of recommendations, and penalizes correct recommendations if based on the order of the recommendations. Map@k and Mar@k are ideal for evaluating an ordered list of recommendations. There is a fantastic implmentation of Mean Average Precision at K (Map@k) available [here](https://github.com/benhamner/Metrics), so I have not included it in this repo.
 
-<img src="images/mark_plot.gif" alt="Mar@k" width=400>
+<img src="images/mark_plot.png" alt="Mar@k" width=400>
 
 ## Coverage
 Coverage is the percent of items that the recommender is able to recommend.
@@ -18,7 +18,7 @@ Coverage is the percent of items that the recommender is able to recommend.
 <img src="images/coverage_equation.gif" alt="Coverage Equation" width=400>
 Where 'I' is the number of unique items the model recommends in the test data, and 'N' is the total number of unique items in the training data.
 
-<img src="images/coverage_plot.gif" alt="Coverage Plot" width=400>
+<img src="images/coverage_plot.png" alt="Coverage Plot" width=400>
 
 
 # WIP!
