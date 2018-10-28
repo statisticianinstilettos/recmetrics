@@ -20,15 +20,8 @@ Where 'I' is the number of unique items the model recommends in the test data, a
 
 <img src="images/coverage_plot.gif" alt="Coverage Plot" width=400>
 
-## Item-Level Precision and Recall
-
-## Diversity
-
-## Serendipity
-
-## Novelty
 
 # WIP!
-This repo is a work in progress. I will be continually adding metrics as I find them useful for evaluating recommendations.
+This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations.
 
 <img src="https://media.giphy.com/media/YAnpMSHcurJVS/giphy.gif" width=150>
