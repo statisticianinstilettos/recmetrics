@@ -23,6 +23,23 @@ Where 'I' is the number of unique items the model recommends in the test data, a
 
 <img src="images/coverage_plot.png" alt="Coverage Plot" width=400>
 
+## Personalization
+Personalization is the dissimilarity between user's lists of recommendations. 
+A high score indicates user's recommendations are different).
+A low personalization score indicates user's recommendations are very similar.
+    
+For example, if two users have recommendations lists [A,B,C,D] and [A,B,C,Y], the personalization can be calculated as:
+<img src="images/personalization_code.png" alt="Coverage Plot" width=400>
+
+
+## Intra-list Similarity
+Intra-list similarity uses a feature matrix to calculate the cosine similarity between the items in a list of recommendations.
+The feature matrix is indexed by the item id and includes one-hot-encoded features.
+If a recommender system is recommending lists of very similar items, the intra-list similarity will be high. 
+
+<img src="images/ils_matrix.png" alt="Coverage Plot" width=400>
+
+<img src="images/ils_code.png" alt="Coverage Plot" width=400>
 
 # WIP!
 This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations.
