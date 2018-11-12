@@ -7,10 +7,13 @@ The python notebook in this repo, `example.ipynb`, contains examples of these pl
 The Long Tail plot is used to explore popularity patterns in user-item interaction data. Typically, a small number of items will make up most of the volume of interactions and this is referred to as the "head". The "long tail" typically consists of most products in a catalog, but make up a small percent of interaction volume.
 <img src="images/long_tail_plot.png" alt="Long Tail Plot" width=400>
 
+Typically, only a small percentage of products will have a high volume of user-interactions such as clicks, ratings, or purchases. These are called the items in the "head". The items in the "long tail" typically do not have enough interactions to accurately be recommended using user-based recommender systems like collaborative filtering due to inherent popularity bias in these models. However, methods that can recommend long tail items can result in better-personalized recommendations and higher revenue. The items in the "head" are popular items that user's may not have difficulty finding themselves, and it can be argued that recommending these items is not as helpful as recommending an item that would be considered new and relevant to the user.
+
 ## Mar@K and Map@K
 Mean Average Recall at K (Mar@k) measures the recall at the kth recommendations. Mar@k considers the order of recommendations, and penalizes correct recommendations if based on the order of the recommendations. Map@k and Mar@k are ideal for evaluating an ordered list of recommendations. There is a fantastic implmentation of Mean Average Precision at K (Map@k) available [here](https://github.com/benhamner/Metrics), so I have not included it in this repo.
 
 <img src="images/mark_plot.png" alt="Mar@k" width=400>
+Map@k and Mar@k metrics suffer from popularity bias. If a model works well on popular items, the majority of recommendations will be correct, and Mar@k and Map@k can appear to be high while the model may not be making useful or personalized recommendations. 
 
 ## Coverage
 Coverage is the percent of items that the recommender is able to recommend.
