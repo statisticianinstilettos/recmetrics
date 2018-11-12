@@ -79,8 +79,8 @@ def personalization(predicted):
     """
     Personalization measures recommendation similarity across user's recommendations
     using cosine similairity.
-    A high score indicates poor personalization (user's lists of recommendations are very similar).
-    A low score indicates good personalization (user's lists of recommendations are different).
+    A high score indicates good personalization (user's lists of recommendations are different).
+    A low score indicates poor personalization (user's lists of recommendations are very similar).
     A model is "personalizing" well if the set of recommendations for each user is different.
     Parameters:
     ----------
@@ -115,7 +115,7 @@ def personalization(predicted):
 
     #calculate average similarity
     personalization = np.mean(similarity[upper_right])
-    return personalization
+    return 1-personalization
 
 def single_list_similarity(predicted, feature_df):
     """
