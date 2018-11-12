@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
+import scipy.sparse as sp
 
 def coverage(predicted, catalog):
     """
@@ -115,12 +117,9 @@ def personalization(predicted):
     personalization = np.mean(similarity[upper_right])
     return personalization
 
-def single_list_similarity(predicted, feature_df, k):
+def single_list_similarity(predicted, feature_df):
     """
-    Computes the intra-list similarity at k for a single list of recommendations.
-    (NOTE: k must be greater than or equal to 2 because we need at least two
-           recommended items to calculate a similairty score between the
-           items recommended.
+    Computes the intra-list similarity for a single list of recommendations.
     Parameters
     ----------
     predicted : a list
@@ -128,16 +127,14 @@ def single_list_similarity(predicted, feature_df, k):
         Example: ['X', 'Y', 'Z']
     feature_df: dataframe
         A dataframe with one hot encoded or latent features.
-        The dataframe should be indexed by the id used in the recommendations,
-        such as style_id.
+        The dataframe should be indexed by the id used in the recommendations.
     Returns:
     -------
     ils_single_user: float
         The intra-list similarity for a single list of recommendations.
     """
-    #get features for all k recommended items
-    recs = predicted[:k]
-    recs_content = feature_df.loc[recs,]
+    #get features for all recommended items
+    recs_content = feature_df.iloc[predicted]
     recs_content = recs_content.dropna()
     recs_content = sp.csr_matrix(recs_content.values)
 
@@ -162,13 +159,12 @@ def intra_list_similarity(predicted, feature_df):
         Example: [['X', 'Y', 'Z'], ['X', 'Y', 'Z']]
     feature_df: dataframe
         A dataframe with one hot encoded or latent features.
-        The dataframe should be indexed by the id used in the recommendations,
-        such as style_id.
+        The dataframe should be indexed by the id used in the recommendations.
     Returns:
     -------
         The average intra-list similarity for recommendations.
     """
     feature_df = feature_df.fillna(0)
     Users = range(len(predicted))
-    ils = [single_list_similarity(predicted[u], feature_df, len(predicted[u])) for u in Users]
+    ils = [single_list_similarity(predicted[u], feature_df) for u in Users]
     return np.mean(ils)
