@@ -169,7 +169,7 @@ def MapkPlot(mapk_scores, model_names, k_range):
     plt.setp(ax.lines,linewidth=5)
 
     #set labels
-    ax.set_title('Mean Average Recall at K (MAP@K) Comparison')
+    ax.set_title('Mean Average Precision at K (MAP@K) Comparison')
     ax.set_ylabel('MAP@K')
     ax.set_xlabel('K')
 

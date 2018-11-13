@@ -25,7 +25,7 @@ def coverage(predicted, catalog):
     coverage = round(unique_predictions/(len(catalog)* 1.0)*100,2)
     return coverage
 
-def ark(actual, predicted, k=10):
+def _ark(actual, predicted, k=10):
     """
     Computes the average recall at k.
     Parameters
@@ -73,7 +73,7 @@ def mark(actual, predicted, k=10):
         mark: int
             The mean average recall at k (mar@k)
     """
-    return np.mean([ark(a,p,k) for a,p in zip(actual, predicted)])
+    return np.mean([_ark(a,p,k) for a,p in zip(actual, predicted)])
 
 def personalization(predicted):
     """
@@ -117,7 +117,7 @@ def personalization(predicted):
     personalization = np.mean(similarity[upper_right])
     return 1-personalization
 
-def single_list_similarity(predicted, feature_df):
+def _single_list_similarity(predicted, feature_df):
     """
     Computes the intra-list similarity for a single list of recommendations.
     Parameters
@@ -166,5 +166,5 @@ def intra_list_similarity(predicted, feature_df):
     """
     feature_df = feature_df.fillna(0)
     Users = range(len(predicted))
-    ils = [single_list_similarity(predicted[u], feature_df) for u in Users]
+    ils = [_single_list_similarity(predicted[u], feature_df) for u in Users]
     return np.mean(ils)
