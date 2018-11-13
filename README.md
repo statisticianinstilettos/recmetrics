@@ -3,6 +3,8 @@ This library contains useful diagnostic metrics and plots for evaluating recomme
 
 The python notebook in this repo, `example.ipynb`, contains examples of these plots and metrics in action for a simple popularity recommender.
 
+Install with `pip install recmetrics`
+
 ## Long Tail Plot
 The Long Tail plot is used to explore popularity patterns in user-item interaction data. Typically, a small number of items will make up most of the volume of interactions and this is referred to as the "head". The "long tail" typically consists of most products in a catalog, but make up a small percent of interaction volume.
 <img src="images/long_tail_plot.png" alt="Long Tail Plot" width=400>
