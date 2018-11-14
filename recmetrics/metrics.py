@@ -1,9 +1,10 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 import scipy.sparse as sp
 
-def coverage(predicted, catalog):
+
+def coverage(self, predicted, catalog):
     """
     Computes the coverage for a list of recommendations
     Parameters
@@ -25,7 +26,7 @@ def coverage(predicted, catalog):
     coverage = round(unique_predictions/(len(catalog)* 1.0)*100,2)
     return coverage
 
-def _ark(actual, predicted, k=10):
+def _ark(self, actual, predicted, k=10):
     """
     Computes the average recall at k.
     Parameters
@@ -57,7 +58,7 @@ def _ark(actual, predicted, k=10):
 
     return score / len(actual)
 
-def mark(actual, predicted, k=10):
+def mark(self, actual, predicted, k=10):
     """
     Computes the mean average recall at k.
     Parameters
@@ -75,7 +76,7 @@ def mark(actual, predicted, k=10):
     """
     return np.mean([_ark(a,p,k) for a,p in zip(actual, predicted)])
 
-def personalization(predicted):
+def personalization(self, predicted):
     """
     Personalization measures recommendation similarity across user's recommendations
     using cosine similairity.
@@ -92,7 +93,7 @@ def personalization(predicted):
         The personalization score for all recommendations.
     """
 
-    def make_rec_matrix(predicted, unique_recs):
+    def make_rec_matrix(self, predicted, unique_recs):
         rec_matrix = pd.DataFrame(index = range(len(predicted)),columns=unique_recs)
         rec_matrix.fillna(0, inplace=True)
         for i in rec_matrix.index:
@@ -117,7 +118,7 @@ def personalization(predicted):
     personalization = np.mean(similarity[upper_right])
     return 1-personalization
 
-def _single_list_similarity(predicted, feature_df):
+def _single_list_similarity(self, predicted, feature_df):
     """
     Computes the intra-list similarity for a single list of recommendations.
     Parameters
