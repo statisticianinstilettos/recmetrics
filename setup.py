@@ -7,7 +7,7 @@ setup(
     author_email='longoclaire@gmail.com',
     packages=['recmetrics'],
     install_requires=['numpy',
-        'pandas,
+        'pandas',
         'scikit-learn',
         'seaborn'],
     version='0.0.0',
