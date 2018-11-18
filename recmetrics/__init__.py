@@ -1,2 +1,2 @@
 from .metrics import metrics
-from .plots import metrplotsics
+from .plots import plots
