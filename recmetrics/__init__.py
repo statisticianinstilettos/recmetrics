@@ -1,1 +1,1 @@
-from recmetrics.metrics.metrics import coverage
+from .metrics import metrics
