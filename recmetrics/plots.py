@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
 
-def LongTailPlot(self, df, item_id_column, interaction_type, percentage=None, x_labels=True):
+def LongTailPlot(df, item_id_column, interaction_type, percentage=None, x_labels=True):
     """
     Plots the long tail for a user-item interaction dataset.
     ----------
@@ -80,7 +80,7 @@ def LongTailPlot(self, df, item_id_column, interaction_type, percentage=None, x_
     plt.show()
 
 
-def CoveragePlot(self, coverage_scores, model_names):
+def CoveragePlot(coverage_scores, model_names):
     """
     Plots the coverage for a set of models to compare.
     ----------
@@ -107,7 +107,7 @@ def CoveragePlot(self, coverage_scores, model_names):
 
     plt.show()
 
-def MarkPlot(self, mark_scores, model_names, k_range):
+def MarkPlot(mark_scores, model_names, k_range):
     """
     Plots the mean average recall at k for a set of models to compare.
     ----------
@@ -142,7 +142,7 @@ def MarkPlot(self, mark_scores, model_names, k_range):
     plt.show()
 
 
-def MapkPlot(self, mapk_scores, model_names, k_range):
+def MapkPlot(mapk_scores, model_names, k_range):
     """
     Plots the mean average precision at k for a set of models to compare.
     ----------
