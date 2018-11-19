@@ -3,7 +3,7 @@ This library contains useful diagnostic metrics and plots for evaluating recomme
 
 The python notebook in this repo, `example.ipynb`, contains examples of these plots and metrics in action for a simple popularity recommender.
 
-Install with `pip install git+https://github.com/statisticianinstilettos/recmetrics.git#egg=recmetrics`
+Install with `pip install recmetrics`
 
 The metrics and plots class can be imported in python as:
 
