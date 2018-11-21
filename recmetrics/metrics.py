@@ -139,7 +139,6 @@ def _single_list_similarity(predicted, feature_df):
     recs_content = sp.csr_matrix(recs_content.values)
 
     #calculate similarity scores for all items in list
-    import pdb; pdb.set_trace()
     similarity = cosine_similarity(X=recs_content, dense_output=False)
 
     #get indicies for upper right triangle w/o diagonal
