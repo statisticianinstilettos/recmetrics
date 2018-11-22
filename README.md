@@ -5,11 +5,6 @@ The python notebook in this repo, `example.ipynb`, contains examples of these pl
 
 Install with `pip install recmetrics`
 
-The metrics and plots class can be imported in python as:
-
-`from recmetrics import metrics`
-
-`from recmetrics import plots`
 
 ## Long Tail Plot
 The Long Tail plot is used to explore popularity patterns in user-item interaction data. Typically, a small number of items will make up most of the volume of interactions and this is referred to as the "head". The "long tail" typically consists of most products in a catalog, but make up a small percent of interaction volume.
