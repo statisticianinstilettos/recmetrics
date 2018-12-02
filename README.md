@@ -8,6 +8,7 @@ Install with `pip install recmetrics`
 
 ## Long Tail Plot
 The Long Tail plot is used to explore popularity patterns in user-item interaction data. Typically, a small number of items will make up most of the volume of interactions and this is referred to as the "head". The "long tail" typically consists of most products, but make up a small percent of interaction volume.
+
 <img src="images/long_tail_plot.png" alt="Long Tail Plot" width=400>
 
 The items in the "long tail" usually do not have enough interactions to accurately be recommended using user-based recommender systems like collaborative filtering due to inherent popularity bias in these models and data sparsity. Many recommender systems require a certain level of sparsity to train. A good recommender must balance sparsity requirements with popularity bias. 
