@@ -10,6 +10,6 @@ setup(
         'pandas',
         'scikit-learn',
         'seaborn'],
-    version='0.0.2',
+    version='0.0.3',
     description='Evaluation metrics for recommender systems',
 )
