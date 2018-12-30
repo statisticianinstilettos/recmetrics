@@ -9,7 +9,8 @@ setup(
     install_requires=['numpy',
         'pandas',
         'scikit-learn',
-        'seaborn'],
-    version='0.0.3',
+        'seaborn',
+        'surprise'],
+    version='0.0.4',
     description='Evaluation metrics for recommender systems',
 )
