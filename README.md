@@ -22,7 +22,7 @@ Map@k and Mar@k metrics suffer from popularity bias. If a model works well on po
 ## Coverage
 Coverage is the percent of items that the recommender is able to recommend.
 
-<img src="images/coverage_equation.gif" alt="Coverage Equation" width=400>
+<img src="images/coverage_equation.gif" alt="Coverage Equation" width=200>
 Where 'I' is the number of unique items the model recommends in the test data, and 'N' is the total number of unique items in the training data.
 
 <img src="images/coverage_plot.png" alt="Coverage Plot" width=400>
@@ -46,8 +46,13 @@ If a recommender system is recommending lists of very similar items, the intra-l
 <img src="images/ils_code.png" alt="Coverage Plot" width=400>
 
 ## MSE and RMSE 
-Mean Squared Error (MSE) and Root Mean Squared Error (RMSE) are used to evaluate the accuracy of predicted values such as ratings. 
-This can also be used to evalaute the reconstruction of a ratings matrix. 
+Mean Squared Error (MSE) and Root Mean Squared Error (RMSE) are used to evaluate the accuracy of predicted values yhat such as ratings compared to the true value, y. 
+These can also be used to evalaute the reconstruction of a ratings matrix. 
+
+<img src="images/mse.gif" alt="MSE Equation" width=200>
+
+
+<img src="images/rmse.gif" alt="RMSE Equation" width=200>
 
 # WIP!
 This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations.
