@@ -185,7 +185,7 @@ def mse(y, yhat):
     mse = mean_squared_error(y, yhat)
     return mse
 
-def rmse():
+def rmse(y, yhat):
     """
     Computes the root mean square error (RMSE)
     Parameters

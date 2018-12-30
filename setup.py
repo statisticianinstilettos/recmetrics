@@ -11,6 +11,6 @@ setup(
         'scikit-learn',
         'seaborn',
         'surprise'],
-    version='0.0.4',
+    version='0.0.5',
     description='Evaluation metrics for recommender systems',
 )
