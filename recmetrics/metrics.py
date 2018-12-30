@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 import scipy.sparse as sp
+from sklearn.metrics import mean_squared_error
+from math import sqrt
 
 
 def coverage(predicted, catalog):
@@ -168,3 +170,31 @@ def intra_list_similarity(predicted, feature_df):
     Users = range(len(predicted))
     ils = [_single_list_similarity(predicted[u], feature_df) for u in Users]
     return np.mean(ils)
+
+def mse(y, yhat):
+    """
+    Computes the mean square error (MSE)
+    Parameters
+    ----------
+    yhat : Series or array. Reconstructed (predicted) ratings or values.
+    y: original true ratings or values.
+    Returns:
+    -------
+        The mean square error (MSE)
+    """
+    mse = mean_squared_error(y, yhat)
+    return mse
+
+def rmse():
+    """
+    Computes the root mean square error (RMSE)
+    Parameters
+    ----------
+    yhat : Series or array. Reconstructed (predicted) ratings or values
+    y: original true ratings or values.
+    Returns:
+    -------
+        The mean square error (MSE)
+    """
+    rmse = sqrt(mean_squared_error(y, yhat))
+    return rmse
