@@ -45,6 +45,10 @@ If a recommender system is recommending lists of very similar items, the intra-l
 
 <img src="images/ils_code.png" alt="Coverage Plot" width=400>
 
+## MSE and RMSE 
+Mean Squared Error (MSE) and Root Mean Squared Error (RMSE) are used to evaluate the accuracy of predicted values such as ratings. 
+This can also be used to evalaute the reconstruction of a ratings matrix. 
+
 # WIP!
 This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations.
 
