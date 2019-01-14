@@ -173,5 +173,34 @@ def MapkPlot(mapk_scores, model_names, k_range):
     ax.set_title('Mean Average Precision at K (MAP@K) Comparison')
     ax.set_ylabel('MAP@K')
     ax.set_xlabel('K')
+    plt.show()
 
+
+def ClassDistributionPlot(pred_df, threshold=0.5):
+    """
+    Plots the predicted class probabilities with the classification threhsold.
+    The true class states are colored.
+    ----------
+    pred_df: pandas dataframe
+        a dataframe containing a column of classification probabilities,
+        and a column of true class 1 and class 0 states.
+        This dataframe must contain columns named "probability" and "truth"
+        example:
+        	probability | truth
+        	0.850170	|  1
+        	0.072020	|  0
+    threshold: float. default = 0.5
+        A single number between 0 and 1 identifying the threshold to classify observations to class
+        example: 0.5
+    Returns:
+    -------
+        A classification probability plot
+    """
+    sns.distplot( pred_df.query("truth == 1")["probability"] , color="blue", label="Actual Class 1")
+    sns.distplot( pred_df.query("truth == 0")["probability"] , color="green", label="Actual Class 0")
+    plt.axvline(threshold, color="black", linestyle='--')
+    plt.legend()
+    plt.xlabel("Classification probability")
+    plt.ylabel("Class frequency")
+    plt.title("Distributions of Classification Probabilities by True Class")
     plt.show()
