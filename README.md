@@ -54,6 +54,11 @@ These can also be used to evalaute the reconstruction of a ratings matrix.
 
 <img src="images/rmse.gif" alt="RMSE Equation" width=200>
 
+## Predicted Class Probability Distribution Plots
+This plot shows the distributions of class probabilities from a binary classification model. The distributions are colored by the true classes. This plot is typically used to visualize how well the model is able to separate the classes, and to pick the optimal decision threshold to classify observations to class 1 (0.5 is usually the default threshold for this method). This visualization could also be used to visualize the recommendation scores by the true state. For example, the predicted 5 star rating for a single movie could be visualized with this plot to see the optimal predicted rating score to threshold into a prediction of that movie.  
+
+<img src="images/class_probs.png" alt="RMSE Equation" width=400>
+
 # WIP!
 This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations.
 
