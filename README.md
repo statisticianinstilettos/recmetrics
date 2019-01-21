@@ -53,7 +53,6 @@ These can also be used to evalaute the reconstruction of a ratings matrix.
 
 <img src="images/mse.gif" alt="MSE Equation" width=200>
 
-
 <img src="images/rmse.gif" alt="RMSE Equation" width=200>
 
 ## Predicted Class Probability Distribution Plots
@@ -61,10 +60,12 @@ This plot shows the distributions of class prediction probabilities from a binar
 
 <img src="images/class_probs.png" alt="RMSE Equation" width=400>
 
-## Rank Order Analysis
-coming soon...
-
 ## ROC and AUC
+The Receiver Operating Characteristic (ROC) plot is used to visualize the tradeoff between true positives and false positives for binary classification. The Area Under the Curve (AUC) is sometimes used as an evaluation metrics. ROC and AUC can be used to evaluate true and false positives for recommending a single items, or to evaluate the performance of an entire recommender model.
+
+<img src="images/ROC.png" alt="RMSE Equation" width=400>
+
+## Rank Order Analysis
 coming soon...
 
 # WIP!
