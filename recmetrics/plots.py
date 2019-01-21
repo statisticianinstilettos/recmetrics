@@ -3,6 +3,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+from sklearn.metrics import roc_curve, auc
 
 
 def LongTailPlot(df, item_id_column, interaction_type, percentage=None, x_labels=True):
@@ -176,7 +177,7 @@ def MapkPlot(mapk_scores, model_names, k_range):
     plt.show()
 
 
-def ClassDistributionPlot(pred_df, threshold=0.5):
+def ClassDistributionPlot(pred_df, n_bins, threshold=0.5):
     """
     Plots the predicted class probabilities with the classification threhsold.
     The true class states are colored.
@@ -189,6 +190,7 @@ def ClassDistributionPlot(pred_df, threshold=0.5):
         	probability | truth
         	0.850170	|  1
         	0.072020	|  0
+    n_bins: number of bins for histogram.
     threshold: float. default = 0.5
         A single number between 0 and 1 identifying the threshold to classify observations to class
         example: 0.5
@@ -196,11 +198,50 @@ def ClassDistributionPlot(pred_df, threshold=0.5):
     -------
         A classification probability plot
     """
-    sns.distplot( pred_df.query("truth == 1")["probability"] , color="blue", label="Actual Class 1")
-    sns.distplot( pred_df.query("truth == 0")["probability"] , color="green", label="Actual Class 0")
+    sns.distplot( pred_df.query("truth == 1")["probability"] , bins=n_bins, color="blue", label="Actual Class 1")
+    sns.distplot( pred_df.query("truth == 0")["probability"] , bins=n_bins, color="green", label="Actual Class 0")
     plt.axvline(threshold, color="black", linestyle='--')
     plt.legend()
     plt.xlabel("Classification probability")
     plt.ylabel("Class frequency")
     plt.title("Distributions of Classification Probabilities by True Class")
+    plt.show()
+
+def ROCPlot(actual, model_probs, model_names):
+    """
+    Receiver Operating Characteristic Plot. Can plot multiple models.
+    ----------
+    actual: array of dataframe of true classes assignements.
+        example:
+        [1,1,0,1,0]
+    model_probs: list of arrays
+        a list containing classification probabilites for each model in order.
+        example:
+        model_probs = [class_probs_1, class_probs_2]
+    model_names: list of strings
+        a list containing names for each model in order.
+        example:
+        model_names = ["GBT", "Logistic Regression"]
+    Returns:
+    -------
+        Receiver Operating Characteristic Plot with AUC in the legend.
+    """
+    if len(model_names) > 5:
+        return ValueError("Can only compare 5 models or less.")
+
+    colors = ["#ED2BFF", "#14E2C0", "#FF9F1C", "#5E2BFF","#FC5FA3"]
+
+    plt.plot([0, 1], [0, 1], 'r--')
+    plt.title('Receiver Operating Characteristic Plot')
+    plt.ylabel('True Positive Rate')
+    plt.xlabel('False Positive Rate')
+
+    for m in range(len(model_names)):
+        fpr, tpr, threshold = roc_curve(actual, model_probs[m])
+        roc_auc = auc(fpr, tpr)
+        ax = sns.lineplot(x=fpr,
+                          y=tpr,
+                          lw=2,
+                          color=colors[m],
+                          label = model_names[m] + ' AUC = %0.4f' % roc_auc)
     plt.show()
