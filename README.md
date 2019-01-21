@@ -61,7 +61,7 @@ This plot shows the distributions of class prediction probabilities from a binar
 <img src="images/class_probs.png" alt="RMSE Equation" width=400>
 
 ## ROC and AUC
-The Receiver Operating Characteristic (ROC) plot is used to visualize the tradeoff between true positives and false positives for binary classification. The Area Under the Curve (AUC) is sometimes used as an evaluation metrics. ROC and AUC can be used to evaluate true and false positives for recommending a single items, or to evaluate the performance of an entire recommender model.
+The Receiver Operating Characteristic (ROC) plot is used to visualize the tradeoff between true positives and false positives for binary classification. The Area Under the Curve (AUC) is sometimes used as an evaluation metrics. 
 
 <img src="images/ROC.png" alt="RMSE Equation" width=400>
 
