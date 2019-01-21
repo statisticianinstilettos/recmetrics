@@ -59,6 +59,9 @@ This plot shows the distributions of class probabilities from a binary classific
 
 <img src="images/class_probs.png" alt="RMSE Equation" width=400>
 
+## Rank Order Analysis
+coming soon... 
+
 # WIP!
 This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations.
 
