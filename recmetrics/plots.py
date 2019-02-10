@@ -3,10 +3,11 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
-from sklearn.metrics import roc_curve, auc
+from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score
+from sklearn.utils.fixes import signature
 
 
-def LongTailPlot(df, item_id_column, interaction_type, percentage=None, x_labels=True):
+def long_tail_plot(df, item_id_column, interaction_type, percentage=None, x_labels=True):
     """
     Plots the long tail for a user-item interaction dataset.
     ----------
@@ -81,7 +82,7 @@ def LongTailPlot(df, item_id_column, interaction_type, percentage=None, x_labels
     plt.show()
 
 
-def CoveragePlot(coverage_scores, model_names):
+def coverage_plot(coverage_scores, model_names):
     """
     Plots the coverage for a set of models to compare.
     ----------
@@ -108,7 +109,7 @@ def CoveragePlot(coverage_scores, model_names):
 
     plt.show()
 
-def MarkPlot(mark_scores, model_names, k_range):
+def mark_plot(mark_scores, model_names, k_range):
     """
     Plots the mean average recall at k for a set of models to compare.
     ----------
@@ -143,7 +144,7 @@ def MarkPlot(mark_scores, model_names, k_range):
     plt.show()
 
 
-def MapkPlot(mapk_scores, model_names, k_range):
+def mapk_plot(mapk_scores, model_names, k_range):
     """
     Plots the mean average precision at k for a set of models to compare.
     ----------
@@ -177,7 +178,7 @@ def MapkPlot(mapk_scores, model_names, k_range):
     plt.show()
 
 
-def ClassDistributionPlot(pred_df, n_bins, threshold=0.5):
+def class_distribution_plot(pred_df, n_bins=150, threshold=0.5, figsize=(10,6), class1_label=None, class0_label=None):
     """
     Plots the predicted class probabilities with the classification threhsold.
     The true class states are colored.
@@ -194,12 +195,18 @@ def ClassDistributionPlot(pred_df, n_bins, threshold=0.5):
     threshold: float. default = 0.5
         A single number between 0 and 1 identifying the threshold to classify observations to class
         example: 0.5
+    figsize: size of figure
+    class1_label: Name of class 1
+    class0_lebel: Name of class 0
     Returns:
     -------
         A classification probability plot
     """
-    sns.distplot( pred_df.query("truth == 1")["probability"] , bins=n_bins, color="blue", label="Actual Class 1")
-    sns.distplot( pred_df.query("truth == 0")["probability"] , bins=n_bins, color="green", label="Actual Class 0")
+    class0_label = 'Actual Class 0' if class0_label is None else class0_label
+    class1_label = 'Actual Class 1' if class1_label is None else class1_label
+    plt.figure(figsize=figsize)
+    sns.distplot( pred_df.query("truth == 1")["probability"] , bins=n_bins, color="blue", label=class1_label)
+    sns.distplot( pred_df.query("truth == 0")["probability"] , bins=n_bins, color="green", label=class0_label)
     plt.axvline(threshold, color="black", linestyle='--')
     plt.legend()
     plt.xlabel("Classification probability")
@@ -207,7 +214,8 @@ def ClassDistributionPlot(pred_df, n_bins, threshold=0.5):
     plt.title("Distributions of Classification Probabilities by True Class")
     plt.show()
 
-def super_awesome_ROCPlot(actual, model_probs, model_names):
+    
+def roc_curve(actual, model_probs, model_names, figsize=(10,10)):
     """
     Receiver Operating Characteristic Plot. Can plot multiple models.
     ----------
@@ -222,19 +230,23 @@ def super_awesome_ROCPlot(actual, model_probs, model_names):
         a list containing names for each model in order.
         example:
         model_names = ["GBT", "Logistic Regression"]
+    figsize: size of figure
     Returns:
     -------
         Receiver Operating Characteristic Plot with AUC in the legend.
     """
+    model_names = make_listy(model_names)
+    if not is_listy(model_probs): model_probs = [model_probs]
+
     if len(model_names) > 5:
         return ValueError("Can only compare 5 models or less.")
 
     colors = ["#ED2BFF", "#14E2C0", "#FF9F1C", "#5E2BFF","#FC5FA3"]
-
-    plt.plot([0, 1], [0, 1], 'r--')
-    plt.title('Receiver Operating Characteristic Plot')
-    plt.ylabel('True Positive Rate')
-    plt.xlabel('False Positive Rate')
+    fig,ax = plt.subplots(figsize=figsize)
+    ax.plot([0, 1], [0, 1], 'r--')
+    ax.set_title('Receiver Operating Characteristic Plot')
+    ax.set_ylabel('True Positive Rate')
+    ax.set_xlabel('False Positive Rate')
 
     for m in range(len(model_names)):
         fpr, tpr, threshold = roc_curve(actual, model_probs[m])
@@ -245,3 +257,46 @@ def super_awesome_ROCPlot(actual, model_probs, model_names):
                           color=colors[m],
                           label = model_names[m] + ' AUC = %0.4f' % roc_auc)
     plt.show()
+
+
+def precision_recall_curve(targs, preds, figsize=(6,6)):
+    """
+    Plots the precision recall curve
+    ----------
+    targs: array-like true class labels
+    preds: array-like predicted probabilities
+    figsize: size of figure
+
+    Returns:
+    -------
+        A classification probability plot
+    """
+    average_precision = average_precision_score(targs, preds)
+    precision, recall, _ = precision_recall_curve(targs, preds)
+    plt.figure(figsize=figsize)
+    step_kwargs = ({'step': 'post'}
+                   if 'step' in signature(plt.fill_between).parameters
+                   else {})
+    plt.step(recall, precision, color='b', alpha=0.2,
+             where='post')
+    plt.fill_between(recall, precision, alpha=0.2, color='b', **step_kwargs)
+
+    plt.xlabel('Recall')
+    plt.ylabel('Precision')
+    plt.ylim([0.0, 1.05])
+    plt.xlim([0.0, 1.0])
+    plt.title('2-class Precision-Recall curve: AP={0:0.2f}'.format(
+        average_precision))
+    plt.show()
+
+
+def make_listy(p):
+    if isinstance(p, str): return [p]
+    try:
+        _ = iter(p)
+    except TypeError:
+        p = [p]
+    return p
+
+
+def is_listy(x): return isinstance(x, (tuple,list))
