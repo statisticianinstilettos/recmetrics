@@ -67,7 +67,7 @@ The Receiver Operating Characteristic (ROC) plot is used to visualize the tradeo
 
 ## Precision and Recall Curve
 The Precision and Recall plot is used to visualize the tradeoff between precision and recall for one class in a classification.
-<img src="images/PrecisionRecallCurve.png" alt="RMSE Equation" width=200>
+<img src="images/PrecisionRecallCurve.png" alt="RMSE Equation" width=400>
 
 ## Confusion Matrix
 coming soon...
