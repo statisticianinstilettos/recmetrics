@@ -209,6 +209,7 @@ def class_distribution_plot(pred_df, n_bins=150, threshold=0.5, figsize=(10,6), 
     plt.title("Distributions of Classification Probabilities by True Class")
     plt.show()
 
+    
 def roc_plot(actual, model_probs, model_names, figsize=(10,10)):
     """
     Receiver Operating Characteristic Plot. Can plot multiple models.
