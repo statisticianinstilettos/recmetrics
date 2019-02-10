@@ -178,7 +178,7 @@ def mapk_plot(mapk_scores, model_names, k_range):
     plt.show()
 
 
-def class_distribution_plot(pred_df, n_bins=150, threshold=0.5, figsize=(10,6), class1_label=None, class0_label=None):
+def class_separation_plot(pred_df, n_bins=150, threshold=0.5, figsize=(10,6), class1_label=None, class0_label=None):
     """
     Plots the predicted class probabilities with the classification threhsold.
     The true class states are colored.
@@ -214,8 +214,8 @@ def class_distribution_plot(pred_df, n_bins=150, threshold=0.5, figsize=(10,6), 
     plt.title("Distributions of Classification Probabilities by True Class")
     plt.show()
 
-    
-def roc_curve(actual, model_probs, model_names, figsize=(10,10)):
+
+def roc_plot(actual, model_probs, model_names, figsize=(10,10)):
     """
     Receiver Operating Characteristic Plot. Can plot multiple models.
     ----------
@@ -259,7 +259,7 @@ def roc_curve(actual, model_probs, model_names, figsize=(10,10)):
     plt.show()
 
 
-def precision_recall_curve(targs, preds, figsize=(6,6)):
+def precision_recall_plot(targs, preds, figsize=(6,6)):
     """
     Plots the precision recall curve
     ----------
@@ -269,7 +269,7 @@ def precision_recall_curve(targs, preds, figsize=(6,6)):
 
     Returns:
     -------
-        A classification probability plot
+        A precision and recall curve
     """
     average_precision = average_precision_score(targs, preds)
     precision, recall, _ = precision_recall_curve(targs, preds)
