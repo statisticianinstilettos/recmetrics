@@ -199,6 +199,8 @@ def class_distribution_plot(pred_df, n_bins=150, threshold=0.5, figsize=(10,6), 
     -------
         A classification probability plot
     """
+    class0_label = 'Actual Class 0' if class0_label is None else class0_label
+    class1_label = 'Actual Class 1' if class1_label is None else class1_label
     plt.figure(figsize=figsize)
     sns.distplot( pred_df.query("truth == 1")["probability"] , bins=n_bins, color="blue", label=class1_label)
     sns.distplot( pred_df.query("truth == 0")["probability"] , bins=n_bins, color="green", label=class0_label)
