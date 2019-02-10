@@ -65,10 +65,16 @@ The Receiver Operating Characteristic (ROC) plot is used to visualize the tradeo
 
 <img src="images/ROC.png" alt="RMSE Equation" width=400>
 
+## Precision and Recall Curve
+coming soon...
+
+## Confusion Matrix
+coming soon...
+
 ## Rank Order Analysis
 coming soon...
 
 # WIP!
-This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations.
+This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations. I you would like to contribute, please contact me and I'll give you access to make a branch. longoclaire@gmail.com :-)
 
 <img src="https://media.giphy.com/media/YAnpMSHcurJVS/giphy.gif" width=400>
