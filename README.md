@@ -11,14 +11,14 @@ For instructions on how to set up your own python package using twine, check out
 ## Long Tail Plot
 The Long Tail plot is used to explore popularity patterns in user-item interaction data. Typically, a small number of items will make up most of the volume of interactions and this is referred to as the "head". The "long tail" typically consists of most products, but make up a small percent of interaction volume.
 
-<img src="images/long_tail_plot.png" alt="Long Tail Plot" width=400>
+<img src="images/long_tail_plot.png" alt="Long Tail Plot" width=600>
 
 The items in the "long tail" usually do not have enough interactions to accurately be recommended using user-based recommender systems like collaborative filtering due to inherent popularity bias in these models and data sparsity. Many recommender systems require a certain level of sparsity to train. A good recommender must balance sparsity requirements with popularity bias.
 
 ## Mar@K and Map@K
 Mean Average Recall at K (Mar@k) measures the recall at the kth recommendations. Mar@k considers the order of recommendations, and penalizes correct recommendations if based on the order of the recommendations. Map@k and Mar@k are ideal for evaluating an ordered list of recommendations. There is a fantastic implmentation of Mean Average Precision at K (Map@k) available [here](https://github.com/benhamner/Metrics), so I have not included it in this repo.
 
-<img src="images/mark_plot.png" alt="Mar@k" width=400>
+<img src="images/mark_plot.png" alt="Mar@k" width=600>
 Map@k and Mar@k metrics suffer from popularity bias. If a model works well on popular items, the majority of recommendations will be correct, and Mar@k and Map@k can appear to be high while the model may not be making useful or personalized recommendations.
 
 ## Coverage
@@ -63,10 +63,11 @@ This plot shows the distributions of class prediction probabilities from a binar
 ## ROC and AUC
 The Receiver Operating Characteristic (ROC) plot is used to visualize the tradeoff between true positives and false positives for binary classification. The Area Under the Curve (AUC) is sometimes used as an evaluation metrics. 
 
-<img src="images/ROC.png" alt="RMSE Equation" width=400>
+<img src="images/ROC.png" alt="RMSE Equation" width=600>
 
 ## Precision and Recall Curve
-coming soon...
+The Precision and Recall plot is used to visualize the tradeoff between precision and recall for one class in a classification.
+<img src="images/PrecisionRecallCurve.png" alt="RMSE Equation" width=200>
 
 ## Confusion Matrix
 coming soon...
