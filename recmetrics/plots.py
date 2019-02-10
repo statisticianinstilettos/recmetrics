@@ -195,10 +195,15 @@ def class_distribution_plot(pred_df, n_bins=150, threshold=0.5, figsize=(10,6), 
     threshold: float. default = 0.5
         A single number between 0 and 1 identifying the threshold to classify observations to class
         example: 0.5
+    figsize: size of figure
+    class1_label: Name of class 1
+    class0_lebel: Name of class 0
     Returns:
     -------
         A classification probability plot
     """
+    class0_label = 'Actual Class 0' if class0_label is None else class0_label
+    class1_label = 'Actual Class 1' if class1_label is None else class1_label
     plt.figure(figsize=figsize)
     sns.distplot( pred_df.query("truth == 1")["probability"] , bins=n_bins, color="blue", label=class1_label)
     sns.distplot( pred_df.query("truth == 0")["probability"] , bins=n_bins, color="green", label=class0_label)
@@ -210,7 +215,7 @@ def class_distribution_plot(pred_df, n_bins=150, threshold=0.5, figsize=(10,6), 
     plt.show()
 
     
-def roc_plot(actual, model_probs, model_names, figsize=(10,10)):
+def roc_curve(actual, model_probs, model_names, figsize=(10,10)):
     """
     Receiver Operating Characteristic Plot. Can plot multiple models.
     ----------
@@ -225,6 +230,7 @@ def roc_plot(actual, model_probs, model_names, figsize=(10,10)):
         a list containing names for each model in order.
         example:
         model_names = ["GBT", "Logistic Regression"]
+    figsize: size of figure
     Returns:
     -------
         Receiver Operating Characteristic Plot with AUC in the legend.
@@ -253,7 +259,18 @@ def roc_plot(actual, model_probs, model_names, figsize=(10,10)):
     plt.show()
 
 
-def plot_precision_recall_curve(targs, preds, figsize=(6,6)):
+def precision_recall_curve(targs, preds, figsize=(6,6)):
+    """
+    Plots the precision recall curve
+    ----------
+    targs: array-like true class labels
+    preds: array-like predicted probabilities
+    figsize: size of figure
+
+    Returns:
+    -------
+        A classification probability plot
+    """
     average_precision = average_precision_score(targs, preds)
     precision, recall, _ = precision_recall_curve(targs, preds)
     plt.figure(figsize=figsize)
