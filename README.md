@@ -79,7 +79,7 @@ This plot shows the distributions of class prediction probabilities from a binar
 
 This plot could also be used to visualize the recommendation scores. For example, the predicted 5 star rating for a single movie could be visualized with this plot to see the optimal predicted rating score to threshold into a prediction of that movie.  
 
-<img src="images/ratings_distribution.png" alt="ratings distributions" width=400>
+<img src="images/ratings_distribution.png" alt="ratings distributions" width=700>
 
 ## ROC and AUC
 `recmetrics.roc_plot()`
