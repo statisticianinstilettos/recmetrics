@@ -1,12 +1,13 @@
 # recmetrics
-This library contains diagnostic metrics and plots useful for evaluating recommender systems.
+This is a python library with diagnostic and evalulation metrics useful for evaluating recommender systems.
+
+Install with `pip install recmetrics`.
 
 The python notebook in this repo, `example.ipynb`, contains examples of these plots and metrics in action using the [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/20m/).
 
-Install with `pip install recmetrics`
+<i>This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations. If you would like to see a new metrics in this package, or find a bug, or have suggestions for improvement, please contribute! You can contact me and I'll give you access to make a branch. longoclaire@gmail.com :-) </i>
 
-For instructions on how to set up your own python package using twine, check out https://pypi.org/project/twine/
-
+<img src="https://media.giphy.com/media/YAnpMSHcurJVS/giphy.gif" width=200>
 
 ## Long Tail Plot
 `recmetrics.long_tail_plot()`
@@ -123,8 +124,4 @@ coming soon...
 ## How to create a python package with PyPi and twine
 https://pypi.org/project/twine/
 
-# WIP!
-This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations. I you would like to see a new metrics in this package, or find a bug, or have suggestions for improvement, please contribute! You can contact me and I'll give you access to make a branch. longoclaire@gmail.com :-)
-
-<img src="https://media.giphy.com/media/YAnpMSHcurJVS/giphy.gif" width=400>
 
