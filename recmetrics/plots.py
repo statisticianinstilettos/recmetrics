@@ -178,40 +178,45 @@ def mapk_plot(mapk_scores, model_names, k_range):
     plt.show()
 
 
-def class_separation_plot(pred_df, n_bins=150, threshold=0.5, figsize=(10,6), class1_label=None, class0_label=None):
+
+def class_separation_plot(pred_df, n_bins=150, threshold=None, figsize=(10,6), title=None):
     """
-    Plots the predicted class probabilities with the classification threhsold.
+    Plots the predicted class probabilities for multiple classes.
+    Usefull for visualizing predicted interaction values such as 5 star ratings, where a "class" is a star rating,
+    or visualizing predicted class probabilities for binary classification model or recommender system.
     The true class states are colored.
     ----------
     pred_df: pandas dataframe
-        a dataframe containing a column of classification probabilities,
+        a dataframe containing a column of predicted interaction values or classification probabilites,
         and a column of true class 1 and class 0 states.
-        This dataframe must contain columns named "probability" and "truth"
+        This dataframe must contain columns named "predicted" and "truth"
         example:
-        	probability | truth
-        	0.850170	|  1
-        	0.072020	|  0
+        	predicted | truth
+        	5.345345	|  5
+        	2.072020	|  2
     n_bins: number of bins for histogram.
     threshold: float. default = 0.5
         A single number between 0 and 1 identifying the threshold to classify observations to class
         example: 0.5
     figsize: size of figure
-    class1_label: Name of class 1
-    class0_lebel: Name of class 0
+    title: plot title
     Returns:
     -------
         A classification probability plot
     """
-    class0_label = 'Actual Class 0' if class0_label is None else class0_label
-    class1_label = 'Actual Class 1' if class1_label is None else class1_label
+    recommender_palette = ["#ED2BFF", "#14E2C0", "#FF9F1C", "#5E2BFF", "#FC5FA3"]
+    classes = pred_df.truth.unique()
     plt.figure(figsize=figsize)
-    sns.distplot( pred_df.query("truth == 1")["probability"] , bins=n_bins, color="blue", label=class1_label)
-    sns.distplot( pred_df.query("truth == 0")["probability"] , bins=n_bins, color="green", label=class0_label)
-    plt.axvline(threshold, color="black", linestyle='--')
+    for i in range(len(classes)):
+        single_class = classes[i]
+        sns.distplot( pred_df.query("truth == @single_class")["predicted"] , bins=n_bins, color=recommender_palette[i], label="True {}".format(single_class))
     plt.legend()
-    plt.xlabel("Classification probability")
-    plt.ylabel("Class frequency")
-    plt.title("Distributions of Classification Probabilities by True Class")
+    if threshold == None: pass
+    else: plt.axvline(threshold, color="black", linestyle='--')
+    plt.xlabel("Predicted value")
+    plt.ylabel("Frequency")
+    if title == None: plt.title(" ")
+    else: plt.title(title)
     plt.show()
 
 

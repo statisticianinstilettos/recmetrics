@@ -4,6 +4,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 import scipy.sparse as sp
 from sklearn.metrics import mean_squared_error
 from math import sqrt
+import itertools
+from sklearn.metrics import confusion_matrix
 
 
 def coverage(predicted, catalog):
@@ -176,8 +178,8 @@ def mse(y, yhat):
     Computes the mean square error (MSE)
     Parameters
     ----------
-    yhat : Series or array. Reconstructed (predicted) ratings or values.
-    y: original true ratings or values.
+    yhat : Series or array. Reconstructed (predicted) ratings or interaction values.
+    y: original true ratings or interaction values.
     Returns:
     -------
         The mean square error (MSE)
@@ -198,3 +200,81 @@ def rmse(y, yhat):
     """
     rmse = sqrt(mean_squared_error(y, yhat))
     return rmse
+
+def make_confusion_matrix(y, yhat):
+    """
+    Calculates and plots a confusion matrix
+    Parameters
+    ----------
+    y : list or array of actual interaction values such as ratings
+    yhat: list or array of actual predicted interaction values
+    Returns:
+    -------
+        A confusion matrix plot
+    """
+    cm = confusion_matrix(y, yhat, labels=[1,0])
+    cm = np.round(cm.astype('float') / cm.sum(axis=1)[:, np.newaxis],4)*100
+
+    fmt = ".2f"
+    thresh = cm.max() / 2.
+    descriptions = np.array([["True Positive", "False Negative"], ["False Positive", "True Negatives"]])
+    colors = np.array([["green", "red"], ["red", "green"]])
+    plt.imshow([[0,0],[0,0]], interpolation='nearest', cmap=plt.cm.Greys)
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+            plt.text(j, i, format(cm[i, j], fmt)+'%\n' + descriptions[i, j],
+                     horizontalalignment="center",
+                     color=colors[i,j])
+    plt.axhline(y=0.5, xmin=0, xmax=1, color="black", linewidth=0.75)
+    plt.axvline(x=0.5, ymin=0, ymax=1, color="black", linewidth=0.75)
+    plt.ylabel('True')
+    plt.xlabel('Predicted')
+    plt.title("Confusion Matrix")
+    plt.xticks([0,1], [1,0], rotation=45)
+    plt.yticks([0,1], [1,0])
+    plt.show()
+
+
+def recommender_precision(predicted, actual):
+    """
+    Computes the precision of each user's list of recommendations, and averages precision over all users.
+    ----------
+    actual : a list of lists
+        Actual items to be predicted
+        example: [['A', 'B', 'X'], ['A', 'B', 'Y']]
+    predicted : a list of lists
+        Ordered predictions
+        example: [['X', 'Y', 'Z'], ['X', 'Y', 'Z']]
+    Returns:
+    -------
+        precision: int
+    """
+    def calc_precision(predicted, actual):
+        prec = [value for value in predicted if value in actual]
+        prec = np.round(float(len(prec)) / float(len(predicted)), 4)
+        return prec
+
+    precision = np.mean(map(calc_precision, predicted, actual))
+    return precision
+
+
+def recommender_recall(predicted, actual):
+    """
+    Computes the recall of each user's list of recommendations, and averages precision over all users.
+    ----------
+    actual : a list of lists
+        Actual items to be predicted
+        example: [['A', 'B', 'X'], ['A', 'B', 'Y']]
+    predicted : a list of lists
+        Ordered predictions
+        example: [['X', 'Y', 'Z'], ['X', 'Y', 'Z']]
+    Returns:
+    -------
+        recall: int
+    """
+    def calc_recall(predicted, actual):
+        reca = [value for value in predicted if value in actual]
+        reca = np.round(float(len(reca)) / float(len(actual)), 4)
+        return reca
+
+    recall = np.mean(map(calc_recall, predicted, actual))
+    return recall
