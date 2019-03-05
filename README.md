@@ -1,5 +1,5 @@
 # recmetrics
-This library contains useful diagnostic metrics and plots for evaluating recommender systems.
+This library contains diagnostic metrics and plots useful for evaluating recommender systems.
 
 The python notebook in this repo, `example.ipynb`, contains examples of these plots and metrics in action using the [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/20m/).
 
