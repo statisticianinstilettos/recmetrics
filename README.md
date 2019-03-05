@@ -124,7 +124,7 @@ coming soon...
 https://pypi.org/project/twine/
 
 # WIP!
-This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations. I you would like to contribute, please contact me and I'll give you access to make a branch. longoclaire@gmail.com :-)
+This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations. I you would like to see a new metrics in this package, or find a bug, or have suggestions for improvement, please contribute! You can contact me and I'll give you access to make a branch. longoclaire@gmail.com :-)
 
 <img src="https://media.giphy.com/media/YAnpMSHcurJVS/giphy.gif" width=400>
 
