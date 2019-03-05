@@ -73,13 +73,20 @@ These can also be used to evalaute the reconstruction of a ratings matrix.
 ## Predicted Class Probability Distribution Plots
 `recmetrics.class_separation_plot()`
 
-This plot shows the distributions of class prediction probabilities from a binary classification model or a recommender with interactions such as clicks or purchases. This plot is typically used to visualize how well a model is able to distinguish between classes, and to pick the optimal decision threshold to classify observations to class 1 (0.5 is usually the default threshold for this method). 
+
+This is a plot of the distribution of the predicted class probabilities from a classification model. The plot is typically used to visualize how well a model is able to distinguish between two classes, and can assist a Data Scientist in picking the optimal decision threshold to classify observations to class 1 (0.5 is usually the default threshold for this method). The color of the distribution plots represent true class 0 and 1, and everything to the right of the decision threshold is classified as class 0.
 
 <img src="images/class_probs.png" alt="binary class probs" width=400>
 
-This plot could also be used to visualize the recommendation scores. For example, the predicted 5 star rating for all recommended movies could be visualized with this plot to see the optimal predicted rating score to threshold into a prediction of that movie. This plot also visualizes how well the model is able to distinguish between each rating. 
+This plot can also be used to visualize the recommendation scores in two ways. 
 
-<img src="images/ratings_distribution.png" alt="ratings distributions" width=700>
+In this example, and item is considered class 1 if it is rated more than 3 stars, and class 0 if it is not. This example shows the performance of a model that recommends an item when the predicted 5-star rating is greater than 3 (plotted as a vertical decision threshold line). This plot shows that the recommender model will perform better if items with a predicted rating of 3.5 stars or greater is recommended. 
+
+<img src="images/rec_scores.png" alt="ratings scores" width=500>
+
+The raw predicted 5 star rating for all recommended movies could be visualized with this plot to see the optimal predicted rating score to threshold into a prediction of that movie. This plot also visualizes how well the model is able to distinguish between each rating value. 
+
+<img src="images/ratings_distribution.png" alt="ratings distributions" width=500>
 
 ## ROC and AUC
 `recmetrics.roc_plot()`
