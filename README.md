@@ -77,7 +77,7 @@ This plot shows the distributions of class prediction probabilities from a binar
 
 <img src="images/class_probs.png" alt="binary class probs" width=400>
 
-This plot could also be used to visualize the recommendation scores. For example, the predicted 5 star rating for a single movie could be visualized with this plot to see the optimal predicted rating score to threshold into a prediction of that movie.  
+This plot could also be used to visualize the recommendation scores. For example, the predicted 5 star rating for all recommended movies could be visualized with this plot to see the optimal predicted rating score to threshold into a prediction of that movie. This plot also visualizes how well the model is able to distinguish between each rating. 
 
 <img src="images/ratings_distribution.png" alt="ratings distributions" width=700>
 
@@ -108,6 +108,8 @@ Traditional confusion matrix used to evaluate false positive and false negative 
 <img src="images/confusion_matrix.png" alt="PandRcurve" width=400>
 
 ## Rank Order Analysis
+`recmetrics.rank_order_analysis()`
+
 coming soon...
 
 ## How to create a python package with PyPi and twine
