@@ -5,7 +5,7 @@ Install with `pip install recmetrics`.
 
 The python notebook in this repo, `example.ipynb`, contains examples of these plots and metrics in action using the [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/20m/).
 
-<i>This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations. If you would like to see a new metrics in this package, or find a bug, or have suggestions for improvement, please contribute! You can contact me and I'll give you access to make a branch. longoclaire@gmail.com :-) </i>
+<i>This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations. If you would like to see a new metric in this package, or find a bug, or have suggestions for improvement, please contribute! You can contact me and I'll give you access to make a branch. longoclaire@gmail.com :-) </i>
 
 <img src="https://media.giphy.com/media/YAnpMSHcurJVS/giphy.gif" width=200>
 
