@@ -7,7 +7,7 @@ The python notebook in this repo, `example.ipynb`, contains examples of these pl
 
 <i>This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations. If you would like to see a new metric in this package, or find a bug, or have suggestions for improvement, please contribute! You can contact me and I'll give you access to make a branch. longoclaire@gmail.com :-) </i>
 
-<img src="https://media.giphy.com/media/YAnpMSHcurJVS/giphy.gif" width=200>
+<img src="https://media.giphy.com/media/YAnpMSHcurJVS/giphy.gif" width=400>
 
 ## Long Tail Plot
 `recmetrics.long_tail_plot()`
