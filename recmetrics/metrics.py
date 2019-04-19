@@ -6,6 +6,7 @@ from sklearn.metrics import mean_squared_error
 from math import sqrt
 import itertools
 from sklearn.metrics import confusion_matrix
+import matplotlib.pyplot as plt
 
 
 def coverage(predicted, catalog):
