@@ -97,20 +97,18 @@ def personalization(predicted):
         The personalization score for all recommendations.
     """
 
-    def make_rec_matrix(predicted, unique_recs):
-        rec_matrix = pd.DataFrame(index = range(len(predicted)),columns=unique_recs)
-        rec_matrix.fillna(0, inplace=True)
-        for i in rec_matrix.index:
-            rec_matrix.loc[i, predicted[i]] = 1
+    def make_rec_matrix(predicted):
+        df = pd.DataFrame(data=predicted).reset_index().melt(
+            id_vars='index', value_name='item',
+        )
+        df = df[['index', 'item']].pivot(index='index', columns='item', values='item')
+        df = df.mask(pd.notna(df), 1)
+        rec_matrix = sp.csr_matrix(df.values)
         return rec_matrix
 
-    #get all unique items recommended
-    predicted_flattened = [p for sublist in predicted for p in sublist]
-    unique_recs = list(set(predicted_flattened))
-
     #create matrix for recommendations
-    rec_matrix = make_rec_matrix(predicted, unique_recs)
-    rec_matrix_sparse = sp.csr_matrix(rec_matrix.values)
+    predicted = np.array(predicted)
+    rec_matrix_sparse = make_rec_matrix(predicted)
 
     #calculate similarity for every user's recommendation list
     similarity = cosine_similarity(X=rec_matrix_sparse, dense_output=False)
