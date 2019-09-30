@@ -4,7 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score
-from sklearn.utils.fixes import signature
+from funcsigs import signature
 
 
 def long_tail_plot(df, item_id_column, interaction_type, percentage=None, x_labels=True):
