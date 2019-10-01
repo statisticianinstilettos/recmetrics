@@ -1,4 +1,13 @@
 from setuptools import setup
+import io
+import os
+
+
+def read(file_name):
+    """Read a text file and return the content as a string."""
+    with io.open(os.path.join(os.path.dirname(__file__), file_name),
+                 encoding='utf-8') as f:
+        return f.read()
 
 setup(
     name='recmetrics',
@@ -15,4 +24,6 @@ setup(
     ],
     version='0.0.12',
     description='Evaluation metrics for recommender systems',
+    long_description=read("README.md"),
+    long_description_content_type="text/markdown",
 )

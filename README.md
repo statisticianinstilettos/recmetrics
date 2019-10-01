@@ -118,9 +118,6 @@ Traditional confusion matrix used to evaluate false positive and false negative 
 
 coming soon...
 
-## How to create a python package with PyPi and twine
-https://pypi.org/project/twine/
-
 ## WIP
 <i>This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations. If you would like to see a new metric in this package, or find a bug, or have suggestions for improvement, please contribute! You can contact me and I'll give you access to make a branch. longoclaire@gmail.com :-) </i>
 
