@@ -289,7 +289,7 @@ def recommender_precision(predicted, actual):
         prec = np.round(float(len(prec)) / float(len(predicted)), 4)
         return prec
 
-    precision = np.mean(map(calc_precision, predicted, actual))
+    precision = np.mean(list(map(calc_precision, predicted, actual)))
     return precision
 
 
@@ -312,5 +312,5 @@ def recommender_recall(predicted, actual):
         reca = np.round(float(len(reca)) / float(len(actual)), 4)
         return reca
 
-    recall = np.mean(map(calc_recall, predicted, actual))
+    recall = np.mean(list(map(calc_recall, predicted, actual)))
     return recall
