@@ -7,11 +7,12 @@ from math import sqrt
 import itertools
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
+import random
 
 
-def coverage(predicted, catalog):
+def prediction_coverage(predicted, catalog):
     """
-    Computes the coverage for a list of recommendations
+    Computes the prediction coverage for a list of recommendations
     Parameters
     ----------
     predicted : a list of lists
@@ -22,14 +23,50 @@ def coverage(predicted, catalog):
         example: ['A', 'B', 'C', 'X', 'Y', Z]
     Returns
     ----------
-    coverage:
-        The coverage of the recommendations as a percent
+    prediction_coverage:
+        The prediction coverage of the recommendations as a percent
         rounded to 2 decimal places
+    ----------    
+    Metric Defintion:
+    Ge, M., Delgado-Battenfeld, C., & Jannach, D. (2010, September).
+    Beyond accuracy: evaluating recommender systems by coverage and serendipity.
+    In Proceedings of the fourth ACM conference on Recommender systems (pp. 257-260). ACM.
     """
     predicted_flattened = [p for sublist in predicted for p in sublist]
     unique_predictions = len(set(predicted_flattened))
-    coverage = round(unique_predictions/(len(catalog)* 1.0)*100,2)
-    return coverage
+    prediction_coverage = round(unique_predictions/(len(catalog)* 1.0)*100,2)
+    return prediction_coverage
+
+def catalog_coverage(predicted, catalog, k):
+    """
+    Computes the catalog coverage for k lists of recommendations
+    Parameters
+    ----------
+    predicted : a list of lists
+        Ordered predictions
+        example: [['X', 'Y', 'Z'], ['X', 'Y', 'Z']]
+    catalog: list
+        A list of all unique items in the training data
+        example: ['A', 'B', 'C', 'X', 'Y', Z]
+    k: integer
+        The number of observed recommendation lists
+        which randomly choosed in our offline setup
+    Returns
+    ----------
+    catalog_coverage:
+        The catalog coverage of the recommendations as a percent
+        rounded to 2 decimal places
+    ----------    
+    Metric Defintion:
+    Ge, M., Delgado-Battenfeld, C., & Jannach, D. (2010, September).
+    Beyond accuracy: evaluating recommender systems by coverage and serendipity.
+    In Proceedings of the fourth ACM conference on Recommender systems (pp. 257-260). ACM.
+    """
+    sampling = random.choices(predicted, k=k)
+    predicted_flattened = [p for sublist in sampling for p in sublist]
+    L_predictions = len(set(predicted_flattened))
+    catalog_coverage = round(L_predictions/(len(catalog)*1.0)*100,2)
+    return catalog_coverage
 
 def _ark(actual, predicted, k=10):
     """
