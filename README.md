@@ -26,15 +26,25 @@ Mean Average Recall at K (Mar@k) measures the recall at the kth recommendations.
 Map@k and Mar@k metrics suffer from popularity bias. If a model works well on popular items, the majority of recommendations will be correct, and Mar@k and Map@k can appear to be high while the model may not be making useful or personalized recommendations.
 
 ## Coverage
-`recmetrics.coverage()`
+`recmetrics.prediction_coverage()` `recmetrics.catalog_coverage()` 
 `recmetrics.coverage_plot()`
 
-Coverage is the percent of items that the recommender is able to recommend.
+Coverage is the percent of items that the recommender is able to recommend. It referred as prediction coverage and it's depicted by the next formula.
 
 <img src="images/coverage_equation.gif" alt="Coverage Equation" width=200>
 Where 'I' is the number of unique items the model recommends in the test data, and 'N' is the total number of unique items in the training data.
+The catalog coverage is the rate of distinct items recommended over a period of time
+to the user. For this purpose the catalog coverage function take also as parameter 'k' the number of observed recommendation lists. In essence, both of metrics quantify the proportion of items that the system is able to work with.
 
 <img src="images/coverage_plot.png" alt="Coverage Plot" width=400>
+
+## Novelty
+`recmetrics.novelty()`
+
+Novelty measures the capacity of recommender system to propose novel and unexpected items which a user is unlikely to know about already. It uses the self-information of the recommended item and it calculates the mean self-information per top-N recommended list and averages them over all users. 
+
+<img src="images/novelty.gif" alt="Coverage Equation" width=200>
+Where the absolute U is the number of users, count(i) is the number of users consumed the specific item and N is the length of recommended list.
 
 ## Personalization
 `recmetrics.personalization()`
@@ -45,7 +55,6 @@ A low personalization score indicates user's recommendations are very similar.
 
 For example, if two users have recommendations lists [A,B,C,D] and [A,B,C,Y], the personalization can be calculated as:
 <img src="images/personalization_code.png" alt="Coverage Plot" width=400>
-
 
 ## Intra-list Similarity
 `recmetrics.intra_list_similarity()`
