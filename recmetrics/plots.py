@@ -110,6 +110,33 @@ def coverage_plot(coverage_scores, model_names):
 
     plt.show()
 
+def personalization_plot(personalization_scores, model_names):
+    """
+    Plots the personalization for a set of models to compare.
+    ----------
+    personalization_scores: list
+        list of personalization scores in same order as model_names
+        example: [0.17, 0.25, 0.76]
+    model_names: list
+        list of model names in same order as coverage_scores
+        example: ['Model A', 'Model B', 'Model C']
+    Returns:
+    -------
+        A personalization plot
+    """
+    #create palette
+    recommender_palette = ["#ED2BFF", "#14E2C0", "#FF9F1C", "#5E2BFF","#FC5FA3"]
+    sns.set_palette(recommender_palette)
+
+    #make barplot
+    ax = sns.barplot(x=model_names, y=scores)
+
+    #set labels
+    ax.set_title("Personalization in %")
+    ax.set_ylabel("personalization")
+
+    plt.show()
+
 def mark_plot(mark_scores, model_names, k_range):
     """
     Plots the mean average recall at k for a set of models to compare.
@@ -310,7 +337,7 @@ def is_listy(x): return isinstance(x, (tuple,list))
 def metrics_plot(model_names, coverage_scores, personalization_scores, intra_list_similarity_scores):
 
     """
-    Plots the coverage, personalizarion and intra-list similarity for a set of models to compare.
+    Plots the coverage, personalization and intra-list similarity for a set of models to compare.
     ----------
     model_names: list
         list of model names in same order as coverage_scores
