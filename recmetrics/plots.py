@@ -129,7 +129,7 @@ def personalization_plot(personalization_scores, model_names):
     sns.set_palette(recommender_palette)
 
     #make barplot
-    ax = sns.barplot(x=model_names, y=scores)
+    ax = sns.barplot(x=model_names, y=personalization_scores)
 
     #set labels
     ax.set_title("Personalization in %")
