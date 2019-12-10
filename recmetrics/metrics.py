@@ -139,7 +139,7 @@ def personalization(predicted):
             id_vars='index', value_name='item',
         )
         df = df[['index', 'item']].pivot(index='index', columns='item', values='item')
-        df = df.mask(pd.notna(df), 1)
+        df = pd.notna(df)*1
         rec_matrix = sp.csr_matrix(df.values)
         return rec_matrix
 
