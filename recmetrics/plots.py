@@ -4,6 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score
+import plotly.graph_objects as go
 from funcsigs import signature
 
 
@@ -106,6 +107,33 @@ def coverage_plot(coverage_scores, model_names):
     #set labels
     ax.set_title('Catalog Coverage in %')
     ax.set_ylabel('coverage')
+
+    plt.show()
+
+def personalization_plot(personalization_scores, model_names):
+    """
+    Plots the personalization for a set of models to compare.
+    ----------
+    personalization_scores: list
+        list of personalization scores in same order as model_names
+        example: [0.17, 0.25, 0.76]
+    model_names: list
+        list of model names in same order as coverage_scores
+        example: ['Model A', 'Model B', 'Model C']
+    Returns:
+    -------
+        A personalization plot
+    """
+    #create palette
+    recommender_palette = ["#ED2BFF", "#14E2C0", "#FF9F1C", "#5E2BFF","#FC5FA3"]
+    sns.set_palette(recommender_palette)
+
+    #make barplot
+    ax = sns.barplot(x=model_names, y=scores)
+
+    #set labels
+    ax.set_title("Personalization in %")
+    ax.set_ylabel("personalization")
 
     plt.show()
 
@@ -305,3 +333,46 @@ def make_listy(p):
 
 
 def is_listy(x): return isinstance(x, (tuple,list))
+
+def metrics_plot(model_names, coverage_scores, personalization_scores, intra_list_similarity_scores):
+
+    """
+    Plots the coverage, personalization and intra-list similarity for a set of models to compare.
+    ----------
+    model_names: list
+        list of model names in same order as coverage_scores
+        example: ['Model A', 'Model B', 'Model C']
+    coverage_scores: list
+        list of scores in same order as model_names
+        example: [0.17, 0.25, 0.76]
+    personalization_scores: list
+        list of scores in same order as model_names
+        example: [0.43, 0.23, 0.44]
+    intra_list_similarity: list
+        list of scores in same order as model_names
+        example: [0.23, 0.21, 0.69]
+    Returns:
+    -------
+        An interactive metrics plot
+    """
+
+    fig = go.Figure()
+
+    for model_name, coverage, personalization, intra_list_similarity in zip(model_names, coverage_scores, personalization_scores, intra_list_similarity_scores):
+        fig.add_trace(go.Scatterpolar(
+              r=[coverage, personalization * 100, intra_list_similarity * 100],
+              theta=['coverage','personalization','intra list similarity'],
+              fill='tonext',
+              name=model_name
+        ))
+
+    fig.update_layout(
+      polar=dict(
+        radialaxis=dict(
+          visible=True,
+          range=[0, 100]
+        )),
+      showlegend=True
+    )
+
+    fig.show()
