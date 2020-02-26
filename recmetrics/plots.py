@@ -137,6 +137,33 @@ def personalization_plot(personalization_scores, model_names):
 
     plt.show()
 
+def intra_list_similarity_plot(intra_list_similarity_scores, model_names):
+    """
+    Plots the intra-list similarity for a set of models to compare.
+    ----------
+    intra_list_similarity_scores: list
+        list of intra-list similarity scores in same order as model_names
+        example: [0.13, 0.52, 0.36]
+    model_names: list
+        list of model names in same order as coverage_scores
+        example: ['Model A', 'Model B', 'Model C']
+    Returns:
+    -------
+        A intra-list similarity plot
+    """
+    #create palette
+    recommender_palette = ["#ED2BFF", "#14E2C0", "#FF9F1C", "#5E2BFF","#FC5FA3"]
+    sns.set_palette(recommender_palette)
+
+    #make barplot
+    ax = sns.barplot(x=model_names, y=scores)
+
+    #set labels
+    ax.set_title("Similarity in %")
+    ax.set_ylabel("similarity in %")
+
+    plt.show()
+
 def mark_plot(mark_scores, model_names, k_range):
     """
     Plots the mean average recall at k for a set of models to compare.
