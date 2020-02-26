@@ -116,7 +116,7 @@ def personalization_plot(personalization_scores, model_names):
     ----------
     personalization_scores: list
         list of personalization scores in same order as model_names
-        example: [0.17, 0.25, 0.76]
+        example: [0.13, 0.52, 0.36]
     model_names: list
         list of model names in same order as coverage_scores
         example: ['Model A', 'Model B', 'Model C']
@@ -129,7 +129,7 @@ def personalization_plot(personalization_scores, model_names):
     sns.set_palette(recommender_palette)
 
     #make barplot
-    ax = sns.barplot(x=model_names, y=scores)
+    ax = sns.barplot(x=model_names, y=personalization_scores)
 
     #set labels
     ax.set_title("Personalization in %")
