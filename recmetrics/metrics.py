@@ -9,6 +9,43 @@ from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import random
 
+def novelty(predicted, pop, u, n):
+    """
+    Computes the novelty for a list of recommendations
+    Parameters
+    ----------
+    predicted : a list of lists
+        Ordered predictions
+        example: [['X', 'Y', 'Z'], ['X', 'Y', 'Z']]
+    pop: dictionary
+        A dictionary of all items alongside of its occurrences counter in the training data
+        example: {1198: 893, 1270: 876, 593: 876, 2762: 867}
+    u: integer
+        The number of users in the training data
+    n: integer
+        The length of recommended lists per user
+    Returns
+    ----------
+    novelty:
+        The novelty of the recommendations in system level
+    mean_self_information:
+        The novelty of the recommendations in recommended top-N list level
+    ----------    
+    Metric Defintion:
+    Zhou, T., Kuscsik, Z., Liu, J. G., Medo, M., Wakeling, J. R., & Zhang, Y. C. (2010).
+    Solving the apparent diversity-accuracy dilemma of recommender systems.
+    Proceedings of the National Academy of Sciences, 107(10), 4511-4515.
+    """
+    mean_self_information = []
+    k = 0
+    for sublist in predicted:
+        self_information = 0
+        k += 1
+        for i in sublist:
+            self_information += np.sum(-np.log2(pop[i]/u))
+        mean_self_information.append(self_information/n)
+    novelty = sum(mean_self_information)/k
+    return novelty, mean_self_information
 
 def prediction_coverage(predicted, catalog):
     """
