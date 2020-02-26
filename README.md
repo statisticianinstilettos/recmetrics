@@ -1,9 +1,13 @@
 # recmetrics
-This is a python library with diagnostic and evalulation metrics useful for evaluating recommender systems.
+A python library of evalulation metrics and diagnostic tools for recommender systems.
 
 Install with `pip install recmetrics`.
 
-The python notebook in this repo, `example.ipynb`, contains examples of these plots and metrics in action using the [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/20m/).
+Full documentation coming soon.... In the interm, the python notebook in this repo, `example.ipynb`, contains examples of these plots and metrics in action using the [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/20m/). You can also view my [Medium Article](https://towardsdatascience.com/evaluation-metrics-for-recommender-systems-df56c6611093).
+
+<i>This library is an open source project. The goal is to create a go-to source for metrics related to recommender systems. I have begun by adding metrics and plots I found useful durring my career as a Data Scientist at a retail company, and encourage the community to contribute. If you would like to see a new metric in this package, or find a bug, or have suggestions for improvement, please contribute!</i>
+
+<img src="https://media.giphy.com/media/YAnpMSHcurJVS/giphy.gif" width=200>
 
 
 ## Long Tail Plot
@@ -26,15 +30,25 @@ Mean Average Recall at K (Mar@k) measures the recall at the kth recommendations.
 Map@k and Mar@k metrics suffer from popularity bias. If a model works well on popular items, the majority of recommendations will be correct, and Mar@k and Map@k can appear to be high while the model may not be making useful or personalized recommendations.
 
 ## Coverage
-`recmetrics.coverage()`
+`recmetrics.prediction_coverage()` `recmetrics.catalog_coverage()` 
 `recmetrics.coverage_plot()`
 
-Coverage is the percent of items that the recommender is able to recommend.
+Coverage is the percent of items that the recommender is able to recommend. It referred as prediction coverage and it's depicted by the next formula.
 
 <img src="images/coverage_equation.gif" alt="Coverage Equation" width=200>
 Where 'I' is the number of unique items the model recommends in the test data, and 'N' is the total number of unique items in the training data.
+The catalog coverage is the rate of distinct items recommended over a period of time
+to the user. For this purpose the catalog coverage function take also as parameter 'k' the number of observed recommendation lists. In essence, both of metrics quantify the proportion of items that the system is able to work with.
 
 <img src="images/coverage_plot.png" alt="Coverage Plot" width=400>
+
+## Novelty
+`recmetrics.novelty()`
+
+Novelty measures the capacity of recommender system to propose novel and unexpected items which a user is unlikely to know about already. It uses the self-information of the recommended item and it calculates the mean self-information per top-N recommended list and averages them over all users. 
+
+<img src="images/novelty.gif" alt="Coverage Equation" width=200>
+Where the absolute U is the number of users, count(i) is the number of users consumed the specific item and N is the length of recommended list.
 
 ## Personalization
 `recmetrics.personalization()`
@@ -45,7 +59,6 @@ A low personalization score indicates user's recommendations are very similar.
 
 For example, if two users have recommendations lists [A,B,C,D] and [A,B,C,Y], the personalization can be calculated as:
 <img src="images/personalization_code.png" alt="Coverage Plot" width=400>
-
 
 ## Intra-list Similarity
 `recmetrics.intra_list_similarity()`
@@ -117,8 +130,3 @@ Traditional confusion matrix used to evaluate false positive and false negative 
 `recmetrics.rank_order_analysis()`
 
 coming soon...
-
-## WIP
-<i>This repo is a work in progress. I am continually adding metrics as I find them useful for evaluating recommendations. If you would like to see a new metric in this package, or find a bug, or have suggestions for improvement, please contribute! You can contact me and I'll give you access to make a branch. longoclaire@gmail.com :-) </i>
-
-<img src="https://media.giphy.com/media/YAnpMSHcurJVS/giphy.gif" width=200>

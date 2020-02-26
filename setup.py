@@ -22,6 +22,7 @@ setup(
         'surprise',
         'funcsigs',
     ],
+    license='MIT',
     version='0.0.12',
     description='Evaluation metrics for recommender systems',
     long_description=read("README.md"),
