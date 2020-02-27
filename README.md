@@ -5,7 +5,7 @@ Install with `pip install recmetrics`.
 
 Full documentation coming soon.... In the interm, the python notebook in this repo, `example.ipynb`, contains examples of these plots and metrics in action using the [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/20m/). You can also view my [Medium Article](https://towardsdatascience.com/evaluation-metrics-for-recommender-systems-df56c6611093).
 
-<i>This library is an open source project. The goal is to create a go-to source for metrics related to recommender systems. I have begun by adding metrics and plots I found useful durring my career as a Data Scientist at a retail company, and encourage the community to contribute. If you would like to see a new metric in this package, or find a bug, or have suggestions for improvement, please contribute!</i>
+<i>This library is an open source project. The goal is to create a go-to source for metrics related to recommender systems. I have begun by adding metrics and plots I found useful during my career as a Data Scientist at a retail company, and encourage the community to contribute. If you would like to see a new metric in this package, or find a bug, or have suggestions for improvement, please contribute!</i>
 
 <img src="https://media.giphy.com/media/YAnpMSHcurJVS/giphy.gif" width=200>
 
