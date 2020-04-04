@@ -21,6 +21,7 @@ setup(
         'seaborn',
         'surprise',
         'funcsigs',
+        'plotly'
     ],
     license='MIT',
     version='0.0.12',
