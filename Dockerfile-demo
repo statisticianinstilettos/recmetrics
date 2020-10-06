@@ -1,0 +1,8 @@
+FROM jupyter/minimal-notebook:54462805efcb
+
+WORKDIR /recmetrics
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
