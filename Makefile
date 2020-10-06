@@ -20,7 +20,7 @@ build:
 	docker build -t \
 		${REPO_NAME}/${DOCKER_IMAGE_NAME} .
 
-test: build
+test: clean build
 	docker run \
 		--rm \
 		-v "$$PWD":/recmetrics \
