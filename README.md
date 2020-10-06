@@ -13,7 +13,10 @@ Full documentation coming soon.... In the interm, the python notebook in this re
 </p>
 
 ## Long Tail Plot
-`recmetrics.long_tail_plot()`
+
+```python
+recmetrics.long_tail_plot()
+```
 
 The Long Tail plot is used to explore popularity patterns in user-item interaction data. Typically, a small number of items will make up most of the volume of interactions and this is referred to as the "head". The "long tail" typically consists of most products, but make up a small percent of interaction volume.
 
@@ -24,10 +27,14 @@ The Long Tail plot is used to explore popularity patterns in user-item interacti
 The items in the "long tail" usually do not have enough interactions to accurately be recommended using user-based recommender systems like collaborative filtering due to inherent popularity bias in these models and data sparsity. Many recommender systems require a certain level of sparsity to train. A good recommender must balance sparsity requirements with popularity bias.
 
 ## Mar@K and Map@K
-`recmetrics.mark()`
-`recmetrics.mark_plot()`
-`recmetrics.mapk_plot()`
 
+```python
+recmetrics.mark()
+
+recmetrics.mark_plot()
+
+recmetrics.mapk_plot()
+```
 Mean Average Recall at K (Mar@k) measures the recall at the kth recommendations. Mar@k considers the order of recommendations, and penalizes correct recommendations if based on the order of the recommendations. Map@k and Mar@k are ideal for evaluating an ordered list of recommendations. There is a fantastic implmentation of Mean Average Precision at K (Map@k) available [here](https://github.com/benhamner/Metrics), so I have not included it in this repo.
 
 <p align="center">
@@ -61,7 +68,10 @@ to the user. For this purpose the catalog coverage function take also as paramet
 </p>
 
 ## Novelty
-`recmetrics.novelty()`
+
+```python
+recmetrics.novelty()
+```
 
 Novelty measures the capacity of recommender system to propose novel and unexpected items which a user is unlikely to know about already. It uses the self-information of the recommended item and it calculates the mean self-information per top-N recommended list and averages them over all users. 
 
@@ -72,7 +82,10 @@ Novelty measures the capacity of recommender system to propose novel and unexpec
 Where the absolute U is the number of users, count(i) is the number of users consumed the specific item and N is the length of recommended list.
 
 ## Personalization
-`recmetrics.personalization()`
+
+```python
+recmetrics.personalization()
+```
 
 Personalization is the dissimilarity between user's lists of recommendations.
 A high score indicates user's recommendations are different).
@@ -85,7 +98,10 @@ For example, if two users have recommendations lists [A,B,C,D] and [A,B,C,Y], th
 </p>
 
 ## Intra-list Similarity
-`recmetrics.intra_list_similarity()`
+
+```python
+recmetrics.intra_list_similarity()
+```
 
 Intra-list similarity uses a feature matrix to calculate the cosine similarity between the items in a list of recommendations.
 The feature matrix is indexed by the item id and includes one-hot-encoded features.
@@ -100,8 +116,11 @@ If a recommender system is recommending lists of very similar items, the intra-l
 </p>
 
 ## MSE and RMSE
-`recmetrics.mse()`
-`recmetrics.rmse()`
+
+```python
+recmetrics.mse()
+recmetrics.rmse()
+```
 
 Mean Squared Error (MSE) and Root Mean Squared Error (RMSE) are used to evaluate the accuracy of predicted values yhat such as ratings compared to the true value, y.
 These can also be used to evalaute the reconstruction of a ratings matrix.
@@ -115,7 +134,10 @@ These can also be used to evalaute the reconstruction of a ratings matrix.
 </p>
 
 ## Predicted Class Probability Distribution Plots
-`recmetrics.class_separation_plot()`
+
+```python
+recmetrics.class_separation_plot()
+```
 
 
 This is a plot of the distribution of the predicted class probabilities from a classification model. The plot is typically used to visualize how well a model is able to distinguish between two classes, and can assist a Data Scientist in picking the optimal decision threshold to classify observations to class 1 (0.5 is usually the default threshold for this method). The color of the distribution plots represent true class 0 and 1, and everything to the right of the decision threshold is classified as class 0.
@@ -139,7 +161,10 @@ The raw predicted 5 star rating for all recommended movies could be visualized w
 </p>
 
 ## ROC and AUC
-`recmetrics.roc_plot()`
+
+```python
+recmetrics.roc_plot()
+```
 
 The Receiver Operating Characteristic (ROC) plot is used to visualize the trade-off between true positives and false positives for binary classification. The Area Under the Curve (AUC) is sometimes used as an evaluation metrics. 
 
@@ -148,13 +173,18 @@ The Receiver Operating Characteristic (ROC) plot is used to visualize the trade-
 </p>
 
 ## Recommender Precision and Recall
-`recmetrics.recommender_precision()`
-`recmetrics.recommender_recall()`
+```python
+recmetrics.recommender_precision()
+recmetrics.recommender_recall()
+```
 
 Recommender precision and recall uses all recommended items over all users to calculate traditional precision and recall. A recommended item that was actually interacted with in the test data is considered an accurate prediction, and a recommended item that is not interacted with, or received a poor interaction value, can be considered an inaccurate recommendation. The user can assign these values based on their judgment. 
 
 ## Precision and Recall Curve
-`recmetrics.precision_recall_plot()`
+
+```python
+recmetrics.precision_recall_plot()
+```
 
 The Precision and Recall plot is used to visualize the trade-off between precision and recall for one class in a classification.
 
@@ -163,7 +193,10 @@ The Precision and Recall plot is used to visualize the trade-off between precisi
 </p>
 
 ## Confusion Matrix
-`recmetrics.make_confusion_matrix()`
+
+```python
+recmetrics.make_confusion_matrix()
+```
 
 Traditional confusion matrix used to evaluate false positive and false negative trade-offs.
 
@@ -172,6 +205,9 @@ Traditional confusion matrix used to evaluate false positive and false negative 
 </p>
 
 ## Rank Order Analysis
-`recmetrics.rank_order_analysis()`
+
+```python
+recmetrics.rank_order_analysis()
+```
 
 coming soon...
