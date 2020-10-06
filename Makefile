@@ -31,7 +31,7 @@ build_demo:
 		-f Dockerfile-demo \
 		-t ${REPO_NAME}/${DOCKER_IMAGE_NAME}-demo .
 
-demo: build_demo
+run_demo: build_demo
 	docker run \
 		--rm \
 		-p 8888:8888 \
