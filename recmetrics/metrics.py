@@ -1,6 +1,7 @@
 import random
 from itertools import product
 from math import sqrt
+from typing import List
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -10,7 +11,7 @@ from sklearn.metrics import confusion_matrix, mean_squared_error
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-def novelty(predicted: list, pop: dict, u: int, n: int) -> (float, list):
+def novelty(predicted: List[list], pop: dict, u: int, n: int) -> (float, list):
     """
     Computes the novelty for a list of recommendations
     Parameters
@@ -48,7 +49,7 @@ def novelty(predicted: list, pop: dict, u: int, n: int) -> (float, list):
     novelty = sum(mean_self_information)/k
     return novelty, mean_self_information
 
-def prediction_coverage(predicted, catalog):
+def prediction_coverage(predicted: List[list], catalog: list) -> float:
     """
     Computes the prediction coverage for a list of recommendations
     Parameters
@@ -75,7 +76,7 @@ def prediction_coverage(predicted, catalog):
     prediction_coverage = round(unique_predictions/(len(catalog)* 1.0)*100,2)
     return prediction_coverage
 
-def catalog_coverage(predicted, catalog, k):
+def catalog_coverage(predicted: List[list], catalog: list, k: int) -> float:
     """
     Computes the catalog coverage for k lists of recommendations
     Parameters
@@ -106,7 +107,7 @@ def catalog_coverage(predicted, catalog, k):
     catalog_coverage = round(L_predictions/(len(catalog)*1.0)*100,2)
     return catalog_coverage
 
-def _ark(actual, predicted, k=10):
+def _ark(actual: list, predicted: list, k=10) -> int:
     """
     Computes the average recall at k.
     Parameters
@@ -138,7 +139,7 @@ def _ark(actual, predicted, k=10):
 
     return score / len(actual)
 
-def mark(actual, predicted, k=10):
+def mark(actual: List[list], predicted: List[list], k=10) -> int:
     """
     Computes the mean average recall at k.
     Parameters
@@ -156,7 +157,7 @@ def mark(actual, predicted, k=10):
     """
     return np.mean([_ark(a,p,k) for a,p in zip(actual, predicted)])
 
-def personalization(predicted):
+def personalization(predicted: List[list]) -> float:
     """
     Personalization measures recommendation similarity across users.
     A high score indicates good personalization (user's lists of recommendations are different).
@@ -172,7 +173,7 @@ def personalization(predicted):
         The personalization score for all recommendations.
     """
 
-    def make_rec_matrix(predicted):
+    def make_rec_matrix(predicted: List[list]) -> sp.csr_matrix:
         df = pd.DataFrame(data=predicted).reset_index().melt(
             id_vars='index', value_name='item',
         )
@@ -195,7 +196,7 @@ def personalization(predicted):
     personalization = np.mean(similarity[upper_right])
     return 1-personalization
 
-def _single_list_similarity(predicted, feature_df, u):
+def _single_list_similarity(predicted: list, feature_df: pd.DataFrame, u: int) -> float:
     """
     Computes the intra-list similarity for a single list of recommendations.
     Parameters
@@ -230,7 +231,7 @@ def _single_list_similarity(predicted, feature_df, u):
     ils_single_user = np.mean(similarity[upper_right])
     return ils_single_user
 
-def intra_list_similarity(predicted, feature_df):
+def intra_list_similarity(predicted: List[list], feature_df: pd.DataFrame) -> float:
     """
     Computes the average intra-list similarity of all recommendations.
     This metric can be used to measure diversity of the list of recommended items.
@@ -251,7 +252,7 @@ def intra_list_similarity(predicted, feature_df):
     ils = [_single_list_similarity(predicted[u], feature_df, u) for u in Users]
     return np.mean(ils)
 
-def mse(y, yhat):
+def mse(y: list, yhat: np.array) -> float:
     """
     Computes the mean square error (MSE)
     Parameters
@@ -265,7 +266,7 @@ def mse(y, yhat):
     mse = mean_squared_error(y, yhat)
     return mse
 
-def rmse(y, yhat):
+def rmse(y: list, yhat: np.array) -> float:
     """
     Computes the root mean square error (RMSE)
     Parameters
@@ -279,7 +280,7 @@ def rmse(y, yhat):
     rmse = sqrt(mean_squared_error(y, yhat))
     return rmse
 
-def make_confusion_matrix(y, yhat):
+def make_confusion_matrix(y: list, yhat: list) -> None:
     """
     Calculates and plots a confusion matrix
     Parameters
@@ -312,7 +313,7 @@ def make_confusion_matrix(y, yhat):
     plt.show()
 
 
-def recommender_precision(predicted, actual):
+def recommender_precision(predicted: List[list], actual: List[list]) -> int:
     """
     Computes the precision of each user's list of recommendations, and averages precision over all users.
     ----------
@@ -335,7 +336,7 @@ def recommender_precision(predicted, actual):
     return precision
 
 
-def recommender_recall(predicted, actual):
+def recommender_recall(predicted: List[list], actual: List[list]) -> int:
     """
     Computes the recall of each user's list of recommendations, and averages precision over all users.
     ----------
