@@ -1,15 +1,16 @@
+import random
+from itertools import product
+from math import sqrt
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from sklearn.metrics.pairwise import cosine_similarity
 import scipy.sparse as sp
-from sklearn.metrics import mean_squared_error
-from math import sqrt
-import itertools
-from sklearn.metrics import confusion_matrix
-import matplotlib.pyplot as plt
-import random
+from sklearn.metrics import confusion_matrix, mean_squared_error
+from sklearn.metrics.pairwise import cosine_similarity
 
-def novelty(predicted, pop, u, n):
+
+def novelty(predicted: list, pop: dict, u: int, n: int) -> (float, list):
     """
     Computes the novelty for a list of recommendations
     Parameters
@@ -297,7 +298,7 @@ def make_confusion_matrix(y, yhat):
     descriptions = np.array([["True Positive", "False Negative"], ["False Positive", "True Negatives"]])
     colors = np.array([["green", "red"], ["red", "green"]])
     plt.imshow([[0,0],[0,0]], interpolation='nearest', cmap=plt.cm.Greys)
-    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+    for i, j in product(range(cm.shape[0]), range(cm.shape[1])):
             plt.text(j, i, format(cm[i, j], fmt)+'%\n' + descriptions[i, j],
                      horizontalalignment="center",
                      color=colors[i,j])

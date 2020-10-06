@@ -1,11 +1,12 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
-from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score
 import plotly.graph_objects as go
+import seaborn as sns
 from funcsigs import signature
+from matplotlib.lines import Line2D
+from sklearn.metrics import (auc, average_precision_score,
+                             precision_recall_curve, roc_curve)
 
 
 def long_tail_plot(df, item_id_column, interaction_type, percentage=None, x_labels=True):
@@ -83,7 +84,7 @@ def long_tail_plot(df, item_id_column, interaction_type, percentage=None, x_labe
     plt.show()
 
 
-def coverage_plot(coverage_scores, model_names):
+def coverage_plot(coverage_scores: list, model_names: list) -> None:
     """
     Plots the coverage for a set of models to compare.
     ----------
@@ -110,7 +111,7 @@ def coverage_plot(coverage_scores, model_names):
 
     plt.show()
 
-def personalization_plot(personalization_scores, model_names):
+def personalization_plot(personalization_scores: list, model_names: list) -> None:
     """
     Plots the personalization for a set of models to compare.
     ----------
@@ -302,14 +303,14 @@ def roc_plot(actual, model_probs, model_names, figsize=(10,10)):
         return ValueError("Can only compare 5 models or less.")
 
     colors = ["#ED2BFF", "#14E2C0", "#FF9F1C", "#5E2BFF","#FC5FA3"]
-    fig,ax = plt.subplots(figsize=figsize)
+    _,ax = plt.subplots(figsize=figsize)
     ax.plot([0, 1], [0, 1], 'r--')
     ax.set_title('Receiver Operating Characteristic Plot')
     ax.set_ylabel('True Positive Rate')
     ax.set_xlabel('False Positive Rate')
 
     for m in range(len(model_names)):
-        fpr, tpr, threshold = roc_curve(actual, model_probs[m])
+        fpr, tpr, _ = roc_curve(actual, model_probs[m])
         roc_auc = auc(fpr, tpr)
         ax = sns.lineplot(x=fpr,
                           y=tpr,
