@@ -1,7 +1,11 @@
 # recmetrics
 A python library of evalulation metrics and diagnostic tools for recommender systems.
 
-Install with `pip install recmetrics`.
+|Description|Command|
+|:---:|:---|
+|Installation|`pip install recmetrics`|
+|Notebook Demo|`make run_demo`|
+|Test|`make test`|
 
 Full documentation coming soon.... In the interm, the python notebook in this repo, `example.ipynb`, contains examples of these plots and metrics in action using the [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/20m/). You can also view my [Medium Article](https://towardsdatascience.com/evaluation-metrics-for-recommender-systems-df56c6611093).
 
