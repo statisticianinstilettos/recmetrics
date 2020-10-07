@@ -10,3 +10,9 @@ venv/
 
 # Python egg metadata, regenerated from source files by setuptools.
 /*.egg-info
+
+# VSCode folder
+.vscode
+
+# MovieLens files
+ml-20m/
