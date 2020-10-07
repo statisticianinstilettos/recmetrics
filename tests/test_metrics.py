@@ -1,6 +1,7 @@
 from recmetrics import metrics
 
 import unittest
+from unittest import mock
 
 
 class TestMetrics(unittest.TestCase):
@@ -88,8 +89,20 @@ class TestMetrics(unittest.TestCase):
 
         self.assertAlmostEqual(rmse, 1.054, places=2)
 
-    def test_make_confusion_matrix(self):
-        pass
+    # TODO: Additional test coverage for confusion matrix
+    @mock.patch("%s.metrics.plt" % __name__)
+    def test_make_confusion_matrix(self, mock_plt):
+        
+        y_pred = [1, 3, 1, 3, 1, 3, 4, 1, 1, 3]
+        
+        y_test = [2, 4, 3, 1, 3, 4, 5, 2, 1, 4]
+
+        metrics.make_confusion_matrix(
+            y = y_test,
+            yhat = y_pred
+        )
+
+        self.assertTrue(mock_plt.title.called)
 
     def test_recommender_precision(self):
         COV = metrics.recommender_precision(
@@ -97,7 +110,6 @@ class TestMetrics(unittest.TestCase):
             actual=['A', 'B', 'C', 'X', 'Y', 'Z'])
 
         self.assertEqual(COV, 0.)
-
 
     def test_recommender_recall(self):
         COV = metrics.recommender_recall(
