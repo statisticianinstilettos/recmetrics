@@ -9,4 +9,7 @@ WORKDIR /recmetrics
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Display Pytest output in color
+ENV PYTEST_ADDOPTS="--color=yes"
+
 COPY . .
