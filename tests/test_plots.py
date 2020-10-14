@@ -56,24 +56,30 @@ class TestPlots(unittest.TestCase):
 
         self.assertTrue(mock_sns.barplot.called)
     
-    # BUG: Test failing; written incorrectly
-    @mock.patch("%s.plots.sns" % __name__)
-    def test_mark_plot(self, mock_sns):
-        
-        # test_mark_scores = [[0.17, 0.25, 0.76],[0.2, 0.5, 0.74]]
+    @mock.patch("%s.plots.plt" % __name__)
+    def test_mark_plot(self, mock_plt):
+        """
+        Test mark_plot function
 
-        # test_model_names = ['Model A', 'Model B']
+        This test assumes the plot output is correct
+        """
 
-        # test_k_range = [1,2,3,4,5,6,7,8,9,10]
+        # GIVEN mark_plot metrics
+        test_mark_scores = [[0.17, 0.25, 0.76], [0.2, 0.5, 0.74]]
 
-        # plots.mark_plot(
-        #     mark_scores=test_mark_scores.
-        #     model_names=test_model_names,
-        #     k_range=test_k_range
-        # )
+        test_model_names = ["Model A", "Model B"]
 
-        # self.assertTrue(mock_sns.show.called)
-        pass
+        test_k_range = [1, 2, 3]
+
+        # WHEN plots.mark_plot is run
+        plots.mark_plot(
+            mark_scores=test_mark_scores,
+            model_names=test_model_names,
+            k_range=test_k_range
+        )
+
+        # THEN plt.show() should be called in the function
+        self.assertTrue(mock_plt.show.called)
     
     # BUG: Test failing; written incorrectly
     @mock.patch("%s.plots.sns" % __name__)
