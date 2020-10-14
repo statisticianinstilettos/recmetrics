@@ -1,6 +1,7 @@
 import unittest
 from unittest import mock
 
+import pandas as pd
 from recmetrics import plots
 
 
@@ -91,8 +92,33 @@ class TestPlots(unittest.TestCase):
         # self.assertTrue(mock_sns.lineplot.called)
         pass
 
-    def test_class_separation_plot(self):
-        pass
+    @mock.patch("%s.plots.plt" % __name__)
+    def test_class_separation_plot(self, mock_plt):
+        """
+        Test class_separation_plot function
+        
+        This test assumes the plot output is correct
+        """
+        
+        # GIVEN test predictions (formatted as a DataFrame)
+        test_predictions = [{'predicted': 0.8234533056632546, 'truth': 1.0},
+                            {'predicted': 0.38809152841543315, 'truth': 0.0},
+                            {'predicted': 0.6884520702843566, 'truth': 1.0},
+                            {'predicted': 0.8619420469620636, 'truth': 1.0},
+                            {'predicted': 0.4467523400196148, 'truth': 1.0},
+                            {'predicted': 0.1866420601469934, 'truth': 0.0},
+                            {'predicted': 0.3254255160354242, 'truth': 0.0},
+                            {'predicted': 0.7630648787719122, 'truth': 1.0},
+                            {'predicted': -0.057428628469647525, 'truth': 0.0},
+                            {'predicted': 0.7552402377980721, 'truth': 1.0}]
+
+        test_pred_df = pd.DataFrame(test_predictions)
+
+        # WHEN plots.class_separation_plot is run
+        plots.class_separation_plot(test_pred_df, n_bins=45, title="TEST Class Separation Plot")
+
+        # THEN check if plt.show() is called
+        self.assertTrue(mock_plt.show.called)
 
     def test_roc_plot(self):
         pass
@@ -101,6 +127,12 @@ class TestPlots(unittest.TestCase):
         pass
 
     def test_make_listy(self):
+        
+        # test_x = [(0,1,2), [1,2,3]]
+
+        # plots.is_listy(x=test_x)
+
+        # self.assertTrue()
         pass
 
     def test_is_listy(self):
