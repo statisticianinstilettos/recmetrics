@@ -7,36 +7,15 @@ from recmetrics import metrics
 
 class TestMetrics(unittest.TestCase):
 
-    # BUG: Test failing
     def test_novelty(self):
         """
         Test novelty function
         """
 
         # GIVEN test_novelty metrics
-        # test_predicted = [['X', 'Y', 'Z'], ['X', 'Y', 'Z']]
-        # test_pop = {1198: 893, 1270: 876, 593: 876, 2762: 867}
-        # test_u = 5
-        # test_n = 3
+        test_predicted_popularity = [[1198, 1270, 593, 2762, 318, 2571, 260, 1240, 296, 608],
+                                     [1198, 1270, 593, 2762, 318, 2571, 260, 1240, 296, 608]]
 
-        test_predicted = [[53123, 2648, 2115, 1198, 3052, 2423, 72378, 586, 3082, 1127],
-                          [858, 1982, 2376, 4034, 1203, 7371,
-                              6541, 26240, 7445, 46976],
-                          [5686, 56788, 377, 96815, 2676,
-                              4971, 349, 59725, 1544, 56169],
-                          [2598, 595, 2747, 6753, 3435, 58246,
-                              1573, 77421, 40278, 2870],
-                          [2100, 3832, 110, 7151, 4366,
-                              52245, 2016, 31584, 1208, 4131],
-                          [77561, 5525, 2803, 63082, 1721,
-                              3160, 73023, 2757, 8754, 2155],
-                          [648, 5971, 6534, 1250, 2161,
-                              86320, 37733, 2390, 5139, 4027],
-                          [3793, 1270, 3784, 1013, 8949,
-                              3723, 1653, 376, 766, 165],
-                          [1682, 45, 3451, 85213, 5483,
-                              95167, 1917, 3418, 3448, 1923],
-                          [6844, 5095, 1022, 1215, 1224, 4077, 123, 2470, 92008, 34]]
         test_pop = {1198: 893,
                     1270: 876,
                     593: 876,
@@ -47,19 +26,20 @@ class TestMetrics(unittest.TestCase):
                     1240: 857,
                     296: 856,
                     608: 853}
-        test_users = 10
+
+        test_users = 933 # Total unique users from notebook demo
         test_recs_per_user = 10
 
         # WHEN metrics.novelty is run
-        novelty_score, avg_self_info = metrics.novelty(
-            predicted = test_predicted,
+        novelty_score, _ = metrics.novelty(
+            predicted = test_predicted_popularity,
             pop = test_pop,
             u = test_users,
             n = test_recs_per_user
         )
 
-        # THEN the novelty score should equal the expected tuple
-        self.assertEqual(novelty_score, (2, 3))
+        # THEN the novelty score should equal the expected value within 3 decimal places
+        self.assertEqual(novelty_score, 0.10697151566593581, 3)
 
     def test_prediction_coverage(self):
         """
@@ -162,7 +142,7 @@ class TestMetrics(unittest.TestCase):
         feature_df = pd.DataFrame.from_dict(lst_features, orient="index").reset_index().rename(
             columns={"index": "movieId"}).set_index("movieId")
 
-        # When metrics.intra_list_similarity is run
+        # WHEN metrics.intra_list_similarity is run
         intra_list_similarity = metrics.intra_list_similarity(
             test_predictions, feature_df
         )
