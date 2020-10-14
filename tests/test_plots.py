@@ -81,22 +81,28 @@ class TestPlots(unittest.TestCase):
         # THEN plt.show() should be called in the function
         self.assertTrue(mock_plt.show.called)
     
-    # BUG: Test failing; written incorrectly
     @mock.patch("%s.plots.sns" % __name__)
     def test_mapk_plot(self, mock_sns):
-        
-        # MAPK_SCORES = [[0.17, 0.25, 0.76],[0.2, 0.5, 0.74]]
+        """
+        Test mapk_plot function
 
-        # MODEL_NAMES = ["Model A", "Model B"]
+        This test assumes the plot output is correct
+        """
 
-        # K_RANGE = [[1,2,3],[4,5,6]]
+        # GIVEN mapk_plot metrics
+        test_mapk_scores = [[0.17, 0.25, 0.76], [0.2, 0.5, 0.74]]
 
-        # plots.mapk_plot(mapk_scores=MAPK_SCORES,
-        #     model_names=MODEL_NAMES,
-        #     k_range=K_RANGE)
+        test_model_names = ["Model A", "Model B"]
 
-        # self.assertTrue(mock_sns.lineplot.called)
-        pass
+        test_k_range = [1, 2, 3]
+
+        # WHEN plots.mapk_plot is run
+        plots.mapk_plot(mapk_scores=test_mapk_scores,
+            model_names=test_model_names,
+            k_range=test_k_range)
+
+        # THEN sns.lineplot() should be called in the function
+        self.assertTrue(mock_sns.lineplot.called)
 
     @mock.patch("%s.plots.plt" % __name__)
     def test_class_separation_plot(self, mock_plt):
