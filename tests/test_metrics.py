@@ -12,64 +12,71 @@ class TestMetrics(unittest.TestCase):
 
     # BUG: Test failing
     def test_novelty(self):
-
-        COV = metrics.novelty(
+        """
+        """
+        novelty_score = metrics.novelty(
             predicted = [['X', 'Y', 'Z'], ['X', 'Y', 'Z']],
             pop = {1198: 893, 1270: 876, 593: 876, 2762: 867},
             u = 5,
             n = 3
         )
 
-        self.assertEqual(COV, (2, 3))
+        self.assertEqual(novelty_score, (2, 3))
 
     def test_prediction_coverage(self):
-
-        COV = metrics.prediction_coverage(
+        """
+        """
+        prediction_coverage = metrics.prediction_coverage(
             predicted = [['X', 'Y', 'Z'], ['X', 'Y', 'Z']],
             catalog=['A', 'B', 'C', 'X', 'Y', 'Z'])
 
-        self.assertEqual(COV, 50.)
+        self.assertEqual(prediction_coverage, 50.)
 
     def test_catalog_coverage(self):
-
-        COV = metrics.catalog_coverage(
+        """
+        """
+        catalog_coverage = metrics.catalog_coverage(
             predicted = [['X', 'Y', 'Z'], ['X', 'Y', 'Z']],
             catalog=['A', 'B', 'C', 'X', 'Y', 'Z'],
             k=3        
         )
 
-        self.assertEqual(COV, 50.)
-
-    # TODO: Create test
-    def test_ark(self):
-        # metrics._ark()
-        pass
+        self.assertEqual(catalog_coverage, 50.)
 
     def test_mark(self):
-
-        COV = metrics.mark(
+        """
+        """
+        mean_abs_recall_k = metrics.mark(
             actual=[['A', 'B', 'X'], ['A', 'B', 'Y']],
             predicted=[['X', 'Y', 'Z'], ['X', 'Y', 'Z']],
             k=5
         )
 
-        self.assertEqual(COV, 0.25)
+        self.assertEqual(mean_abs_recall_k, 0.25)
 
-    # BUG: Test failing
     def test_personalization(self):
+        """
+        """
 
-        COV = metrics.personalization(
-            predicted=[['X', 'Y', 'Z'], ['X', 'Y', 'Z']])
+        example_predictions = [
+            ['1', '2', 'C', 'D'],
+            ['4', '3', 'm', 'X'],
+            ['7', 'B', 't', 'X']
+        ]
+        
+        personalization_score = metrics.personalization(
+            predicted=example_predictions)
 
-        self.assertAlmostEqual(COV, -2.22, places=2)
-
-    def test_single_list_similarity(self):
-        pass
+        self.assertAlmostEqual(personalization_score, 0.916, places=2)
 
     def test_intra_list_similarity(self):
+        """
+        """
         pass
 
     def test_mse(self):
+        """
+        """
 
         y_pred = [1.5, 3.2, 1.4, 3.3, 1.7, 3.8, 4.4, 1.6, 1.2, 3.7]
         
@@ -80,6 +87,8 @@ class TestMetrics(unittest.TestCase):
         self.assertAlmostEqual(mse, 1.11, places=2)
 
     def test_rmse(self):
+        """
+        """
         
         y_pred = [1.5, 3.2, 1.4, 3.3, 1.7, 3.8, 4.4, 1.6, 1.2, 3.7]
         
@@ -92,6 +101,8 @@ class TestMetrics(unittest.TestCase):
     # TODO: Additional test coverage for confusion matrix
     @mock.patch("%s.metrics.plt" % __name__)
     def test_make_confusion_matrix(self, mock_plt):
+        """
+        """
         
         y_pred = [1, 3, 1, 3, 1, 3, 4, 1, 1, 3]
         
@@ -105,15 +116,19 @@ class TestMetrics(unittest.TestCase):
         self.assertTrue(mock_plt.title.called)
 
     def test_recommender_precision(self):
-        COV = metrics.recommender_precision(
+        """
+        """
+        recommender_precision = metrics.recommender_precision(
             predicted = [['X', 'Y', 'Z'], ['X', 'Y', 'Z']],
             actual=['A', 'B', 'C', 'X', 'Y', 'Z'])
 
-        self.assertEqual(COV, 0.)
+        self.assertEqual(recommender_precision, 0.)
 
     def test_recommender_recall(self):
-        COV = metrics.recommender_recall(
+        """
+        """
+        recommender_recall = metrics.recommender_recall(
             predicted = [['X', 'Y', 'Z'], ['X', 'Y', 'Z']],
             actual=['A', 'B', 'C', 'X', 'Y', 'Z'])
 
-        self.assertEqual(COV, 0.)
+        self.assertEqual(recommender_recall, 0.)
