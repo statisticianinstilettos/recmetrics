@@ -20,6 +20,10 @@ build:
 	docker build -t \
 		${REPO_NAME}/${DOCKER_IMAGE_NAME} .
 
+run: build
+	docker run -it \
+		${REPO_NAME}/${DOCKER_IMAGE_NAME} /bin/bash
+
 test: clean build
 	docker run \
 		--rm \
