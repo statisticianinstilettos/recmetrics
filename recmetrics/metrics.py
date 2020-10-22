@@ -275,7 +275,7 @@ def rmse(y: list, yhat: np.array) -> float:
     y: original true ratings or values.
     Returns:
     -------
-        The mean square error (MSE)
+        The root mean square error (RMSE)
     """
     rmse = sqrt(mean_squared_error(y, yhat))
     return rmse
@@ -295,7 +295,7 @@ def make_confusion_matrix(y: list, yhat: list) -> None:
     cm = np.round(cm.astype('float') / cm.sum(axis=1)[:, np.newaxis],4)*100
 
     fmt = ".2f"
-    thresh = cm.max() / 2.
+    _ = cm.max() / 2. # TODO: Unused argument
     descriptions = np.array([["True Positive", "False Negative"], ["False Positive", "True Negatives"]])
     colors = np.array([["green", "red"], ["red", "green"]])
     plt.imshow([[0,0],[0,0]], interpolation='nearest', cmap=plt.cm.Greys)
