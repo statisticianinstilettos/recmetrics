@@ -7,8 +7,27 @@ from recmetrics import plots
 
 class TestPlots(unittest.TestCase):
 
-    def test_long_tail_plot(self):
-        pass
+    @mock.patch("%s.plots.plt" % __name__)
+    def test_long_tail_plot(self, mock_plt):
+
+        test_lst_ratings = [{'userId': 156, 'movieId': 1, 'rating': 5.0, 'timestamp': 1037739266},
+                            {'userId': 156, 'movieId': 2,
+                                'rating': 5.0, 'timestamp': 1040937649},
+                            {'userId': 156, 'movieId': 4,
+                                'rating': 3.0, 'timestamp': 1038801803},
+                            {'userId': 156, 'movieId': 5,
+                                'rating': 3.0, 'timestamp': 1040944583},
+                            {'userId': 156, 'movieId': 6, 'rating': 4.0, 'timestamp': 1037822117}]
+        
+        test_df_ratings = pd.DataFrame(test_lst_ratings)
+
+        plots.long_tail_plot(df=test_df_ratings,
+                             item_id_column="movieId",
+                             interaction_type="movie ratings",
+                             percentage=0.5,
+                             x_labels=False)
+    
+        self.assertTrue(mock_plt.show.called)
 
     # BUG: Test failing
     @mock.patch("%s.plots.sns" % __name__)
