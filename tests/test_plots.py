@@ -192,5 +192,12 @@ class TestPlots(unittest.TestCase):
 
         self.assertTrue(X)
 
-    def test_metrics_plot(self):
-        pass
+    @mock.patch("%s.plots.go" % __name__)
+    def test_metrics_plot(self, mock_plt):
+        
+        plots.metrics_plot(model_names=['Model A', 'Model B', 'Model C'],
+             coverage_scores=[0.17, 0.25, 0.76],
+             personalization_scores=[0.43, 0.23, 0.44],
+             intra_list_similarity_scores = [0.23, 0.21, 0.69])
+        
+        self.assertTrue(mock_plt.Figure.called)
