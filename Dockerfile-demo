@@ -21,7 +21,12 @@ COPY poetry.lock pyproject.toml /recmetrics/
 RUN poetry config virtualenvs.create false \
     && poetry install
 
-# COPY requirements.txt ./
-# RUN pip install --no-cache-dir -r requirements.txt
+# RUN jupyter labextension install jupyterlab-plotly
+
+# JupyterLab renderer support
+RUN jupyter labextension install jupyterlab-plotly@4.11.0
+
+# OPTIONAL: Jupyter widgets extension
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager plotlywidget@4.11.0
 
 COPY . .
