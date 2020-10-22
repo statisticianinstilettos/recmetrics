@@ -1,6 +1,7 @@
 import unittest
 from unittest import mock
 
+import numpy as np
 import pandas as pd
 from recmetrics import plots
 
@@ -29,7 +30,6 @@ class TestPlots(unittest.TestCase):
     
         self.assertTrue(mock_plt.show.called)
 
-    # BUG: Test failing
     @mock.patch("%s.plots.sns" % __name__)
     def test_coverage_plot(self, mock_plt):
 
@@ -39,12 +39,7 @@ class TestPlots(unittest.TestCase):
 
         plots.coverage_plot(coverage_scores=COVERAGE_SCORES, model_names=MODEL_NAMES)
 
-        # Assert plt.title has been called with expected arg
-        # mock_plt.ax.set_title.assert_called_once_with("Catalog Coverage in X")
-
         # Assert plt.figure got called
-        # assert mock_plt.ax.set_title.called
-        # self.assertTrue(mock_plt.show.called)
         self.assertTrue(mock_plt.barplot.called)
 
     @mock.patch("%s.plots.sns" % __name__)
@@ -151,7 +146,6 @@ class TestPlots(unittest.TestCase):
         # THEN check if plt.show() is called
         self.assertTrue(mock_plt.show.called)
 
-    # BUG: Test failing
     @mock.patch("%s.plots.plt" % __name__)
     def test_roc_plot(self, mock_plt):
         """
@@ -159,30 +153,13 @@ class TestPlots(unittest.TestCase):
 
         This test assumes the plot output is correct
         """
-        
-        # test_actual = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-        # test_model_probs = [0.2597283722018475,
-        #                     -0.40202508916707275,
-        #                     -0.554430069501674,
-        #                     -0.18743657893643717,
-        #                     -0.0703925547410395,
-        #                     0.5121336811899964,
-        #                     0.22999284284308816,
-        #                     -0.20260715473613444,
-        #                     0.3165576766309387,
-        #                     -0.8612054894655852]
-        test_model_probs = [0.25675615862929957, -0.3500402605481892, 0.15462047283444785, -0.048144819632589375, -0.4510045992976353, 1.135931952507712, 1.4963036334971416, 0.9063572632832708, 0.0363931327600891, 0.7933323254700744, 1.6211624410086427, 1.1929177011579082, 1.0703503925181748, 1.3570834620683483, 0.9929086342243878, 0.8070893354680458, 0.5636264228503749, 0.02502729241762336, 1.1537446384105503, 0.7897101257792519, 1.3499695505008096, 1.557654128186544, 0.8064528650065548, 0.9481737883274762, 2.2084120722223375, 0.5166749989387713, 2.1365178742822466, 0.784015169441857, -0.1661370218345174, 0.711697589317327, 1.62387988053605, 0.2505915964588492, 0.28258977878108893, 1.1343170964174987, 0.5673229357282024, 0.7186855975358546, 1.811627818541539, 1.5419576116094615, 0.29619237395158726, 0.9173111081607632, 0.840391974210991, 1.055552891370175, 0.4237489845393724, 0.8185886054538095, 0.5669129093668325, 0.5978555111670991, 0.8294140579707611, 0.8588874087093545, 1.7832693723643547, 1.1691154796408494, 1.4695140074843496, 0.20118514427022993, 0.18162342629310813, 1.2607325155811948, 1.4073475395838173, 1.1421104294621536, 0.5069801098554556, -0.5607036065585306, 0.8269916610939153, 1.41673702708532]
+        test_model_probs = np.concatenate([np.random.normal(loc=.2, scale=0.5, size=100), np.random.normal(loc=.9, scale=0.5, size=100)])
+        test_actual = [0] * 100
+        class_zero_actual = [1] * 100
+        test_actual.extend(class_zero_actual)
 
-        test_actual = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-
-
-        test_model_names = "Test ROC Plot"
-
-        plots.roc_plot(actual=test_actual,
-            model_probs=test_model_probs,
-            model_names=test_model_names,
-            figsize=(10,10))
+        plots.roc_plot(actual=test_actual, model_probs=test_model_probs, model_names="one model",  figsize=(10, 5))
 
         self.assertTrue(mock_plt.show.called)
 
@@ -200,7 +177,13 @@ class TestPlots(unittest.TestCase):
         self.assertTrue(mock_plt.show.called)
     
     def test_make_listy(self):
-        pass
+        
+        test_p = "test recmetrics"
+
+        output_p = plots.make_listy(p=test_p)
+
+        self.assertIsInstance(output_p, list)
+        self.assertEqual(output_p, ["test recmetrics"])
         
     def test_is_listy(self):
         test_x = [(0,1,2), [1,2,3]]
