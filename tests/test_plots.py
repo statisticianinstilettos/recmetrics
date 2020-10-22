@@ -179,18 +179,16 @@ class TestPlots(unittest.TestCase):
         plots.precision_recall_plot(targs=test_actual, preds=test_model_probs)
 
         self.assertTrue(mock_plt.show.called)
-
+    
     def test_make_listy(self):
+        pass
         
-        # test_x = [(0,1,2), [1,2,3]]
-
-        # plots.is_listy(x=test_x)
-
-        # self.assertTrue()
-        pass
-
     def test_is_listy(self):
-        pass
+        test_x = [(0,1,2), [1,2,3]]
+
+        X = plots.is_listy(x=test_x)
+
+        self.assertTrue(X)
 
     def test_metrics_plot(self):
         pass
