@@ -3,9 +3,8 @@ REPO_NAME=statisticianinstilletos
 DOCKER_IMAGE_NAME=recmetrics
 DOCKER_IMAGE_TAG=dev
 
-upload:
+upload: clean
 	# Upload new version to PyPI
-	make clean
 	python3 setup.py sdist bdist_wheel && twine upload dist/*
 
 clean:
@@ -27,7 +26,6 @@ run: build
 test: clean build
 	docker run \
 		--rm \
-		-v "$$PWD":/recmetrics \
 		${REPO_NAME}/${DOCKER_IMAGE_NAME}:latest pytest --cov=recmetrics
 
 build_demo:
