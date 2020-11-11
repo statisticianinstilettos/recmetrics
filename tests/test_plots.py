@@ -10,6 +10,11 @@ class TestPlots(unittest.TestCase):
 
     @mock.patch("%s.plots.plt" % __name__)
     def test_long_tail_plot(self, mock_plt):
+        """
+        Test long_tail_plot function
+        
+        This test assumes the plot output is correct
+        """
 
         test_lst_ratings = [{'userId': 156, 'movieId': 1, 'rating': 5.0, 'timestamp': 1037739266},
                             {'userId': 156, 'movieId': 2,
@@ -32,7 +37,11 @@ class TestPlots(unittest.TestCase):
 
     @mock.patch("%s.plots.sns" % __name__)
     def test_coverage_plot(self, mock_plt):
+        """
+        Test long_tail_plot function
 
+        This test assumes the plot output is correct        
+        """
         COVERAGE_SCORES = [0.17, 0.25, 0.76]
 
         MODEL_NAMES = ['Model A', 'Model B', 'Model C']
@@ -44,7 +53,11 @@ class TestPlots(unittest.TestCase):
 
     @mock.patch("%s.plots.sns" % __name__)
     def test_personalization_plot(self, mock_sns):
+        """
+        Test long_tail_plot function
         
+        This test assumes the plot output is correct
+        """        
         SCORES = [0.13, 0.52, 0.36]
 
         MODEL_NAMES = ["Model A", "Model B", "Model C"]
@@ -58,7 +71,11 @@ class TestPlots(unittest.TestCase):
     
     @mock.patch("%s.plots.sns" % __name__)
     def test_intra_list_similarity_plot(self, mock_sns):
+        """
+        Test long_tail_plot function
         
+        This test assumes the plot output is correct
+        """        
         SCORES = [0.13, 0.52, 0.36]
 
         MODEL_NAMES = ["Model A", "Model B", "Model C"]
@@ -165,7 +182,11 @@ class TestPlots(unittest.TestCase):
 
     @mock.patch("%s.plots.plt" % __name__)
     def test_precision_recall_plot(self, mock_plt):
+        """
+        Test precision_recall_plot function
 
+        This test assumes the plot output is correct
+        """
         test_model_probs = [0.25675615862929957, -0.3500402605481892, 0.15462047283444785, -0.048144819632589375, -0.4510045992976353, 1.135931952507712, 1.4963036334971416, 0.9063572632832708, 0.0363931327600891, 0.7933323254700744, 1.6211624410086427, 1.1929177011579082, 1.0703503925181748, 1.3570834620683483, 0.9929086342243878, 0.8070893354680458, 0.5636264228503749, 0.02502729241762336, 1.1537446384105503, 0.7897101257792519, 1.3499695505008096, 1.557654128186544, 0.8064528650065548, 0.9481737883274762, 2.2084120722223375, 0.5166749989387713, 2.1365178742822466, 0.784015169441857, -0.1661370218345174,
                             0.711697589317327, 1.62387988053605, 0.2505915964588492, 0.28258977878108893, 1.1343170964174987, 0.5673229357282024, 0.7186855975358546, 1.811627818541539, 1.5419576116094615, 0.29619237395158726, 0.9173111081607632, 0.840391974210991, 1.055552891370175, 0.4237489845393724, 0.8185886054538095, 0.5669129093668325, 0.5978555111670991, 0.8294140579707611, 0.8588874087093545, 1.7832693723643547, 1.1691154796408494, 1.4695140074843496, 0.20118514427022993, 0.18162342629310813, 1.2607325155811948, 1.4073475395838173, 1.1421104294621536, 0.5069801098554556, -0.5607036065585306, 0.8269916610939153, 1.41673702708532]
 
@@ -177,7 +198,12 @@ class TestPlots(unittest.TestCase):
         self.assertTrue(mock_plt.show.called)
     
     def test_make_listy(self):
+        """
+        Test make_listy function
         
+        This test assumes the plot output is correct
+        """
+
         test_p = "test recmetrics"
 
         output_p = plots.make_listy(p=test_p)
@@ -186,6 +212,12 @@ class TestPlots(unittest.TestCase):
         self.assertEqual(output_p, ["test recmetrics"])
         
     def test_is_listy(self):
+        """
+        Test is_listy function
+
+        This test assumes the plot output is correct
+        """
+
         test_x = [(0,1,2), [1,2,3]]
 
         X = plots.is_listy(x=test_x)
@@ -194,7 +226,12 @@ class TestPlots(unittest.TestCase):
 
     @mock.patch("%s.plots.go" % __name__)
     def test_metrics_plot(self, mock_plt):
+        """
+        Test metrics_plot function
         
+        This test assumes the plot output is correct
+        """
+
         plots.metrics_plot(model_names=['Model A', 'Model B', 'Model C'],
              coverage_scores=[0.17, 0.25, 0.76],
              personalization_scores=[0.43, 0.23, 0.44],
