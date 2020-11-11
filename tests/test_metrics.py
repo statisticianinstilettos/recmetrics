@@ -189,8 +189,8 @@ class TestMetrics(unittest.TestCase):
         """
         
         # GIVEN predictions and actual values
-        y_pred = [1, 3, 1, 3, 1, 3, 4, 1, 1, 3]
-        y_test = [2, 4, 3, 1, 3, 4, 5, 2, 1, 4]
+        y_pred = [1, 0, 0, 1, 0, 1, 0, 0, 0, 0]
+        y_test = [0, 1, 0, 0, 0, 0, 1, 1, 0, 0]
 
         # WHEN metrics.make_confusion_matrix is run
         metrics.make_confusion_matrix(
