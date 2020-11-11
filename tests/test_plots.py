@@ -47,12 +47,14 @@ class TestPlots(unittest.TestCase):
         """
 
         # GIVEN coverage_plot inputs
-        COVERAGE_SCORES = [0.17, 0.25, 0.76]
+        test_coverage_scores = [0.17, 0.25, 0.76]
 
-        MODEL_NAMES = ['Model A', 'Model B', 'Model C']
+        test_model_names = ['Model A', 'Model B', 'Model C']
 
         # WHEN plots.coverage_plot is run
-        plots.coverage_plot(coverage_scores=COVERAGE_SCORES, model_names=MODEL_NAMES)
+        plots.coverage_plot(
+            coverage_scores=test_coverage_scores,
+            model_names=test_model_names)
 
         # # THEN validate plt.figure is called
         self.assertTrue(mock_plt.barplot.called)
@@ -66,13 +68,13 @@ class TestPlots(unittest.TestCase):
         """
 
         # GIVEN personalization_plot inputs        
-        SCORES = [0.13, 0.52, 0.36]
+        test_scores = [0.13, 0.52, 0.36]
 
-        MODEL_NAMES = ["Model A", "Model B", "Model C"]
+        test_model_names = ["Model A", "Model B", "Model C"]
 
         # WHEN plots.personalization_plot is run
-        plots.personalization_plot(personalization_scores=SCORES,
-            model_names=MODEL_NAMES)
+        plots.personalization_plot(personalization_scores=test_scores,
+            model_names=test_model_names)
 
         # THEN validate barplot is called       
         self.assertTrue(mock_sns.barplot.called)
@@ -86,14 +88,14 @@ class TestPlots(unittest.TestCase):
         """
 
         # GIVEN intra_list_similarity_plot inputs        
-        SCORES = [0.13, 0.52, 0.36]
+        test_scores = [0.13, 0.52, 0.36]
 
-        MODEL_NAMES = ["Model A", "Model B", "Model C"]
+        test_model_names = ["Model A", "Model B", "Model C"]
 
         # WHEN plots.intra_list_similarity_plot is run
         plots.intra_list_similarity_plot(
-            intra_list_similarity_scores=SCORES,
-            model_names=MODEL_NAMES
+            intra_list_similarity_scores=test_scores,
+            model_names=test_model_names
         )
 
         # THEN validate barplot is called
