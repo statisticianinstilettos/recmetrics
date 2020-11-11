@@ -209,15 +209,15 @@ class TestMetrics(unittest.TestCase):
 
         # GIVEN predictions and actual values
         test_predicted = [['X', 'Y', 'Z'], ['X', 'Y', 'Z']]
-        test_actual = ['A', 'B', 'C', 'X', 'Y', 'Z']
+        test_actual = [['A', 'B', 'X'], ['A', 'B', 'Y']]
         
         # WHEN metrics.recommender_precision is run
         recommender_precision = metrics.recommender_precision(
             predicted = test_predicted,
             actual = test_actual)
 
-        # THEN the expected value should equal 0
-        self.assertEqual(recommender_precision, 0.)
+        # THEN the expected value should equal 0.333 within three decimal places
+        self.assertAlmostEqual(recommender_precision, 0.333, places=3)
 
     def test_recommender_recall(self):
         """
@@ -226,12 +226,12 @@ class TestMetrics(unittest.TestCase):
 
         # GIVEN predictions and actual values
         test_predicted = [['X', 'Y', 'Z'], ['X', 'Y', 'Z']]
-        test_actual = ['A', 'B', 'C', 'X', 'Y', 'Z']
+        test_actual = [['A', 'B', 'X'], ['A', 'B', 'Y']]
 
         # WHEN metrics.recommender_recall is run
         recommender_recall = metrics.recommender_recall(
             predicted = test_predicted,
             actual= test_actual)
 
-        # THEN the expected value should equal 0
-        self.assertEqual(recommender_recall, 0.)
+        # THEN the expected value should equal 0.333 within three decimal places
+        self.assertAlmostEqual(recommender_recall, 0.333, places=3)
