@@ -1,13 +1,14 @@
+import random
+import itertools
 import numpy as np
 import pandas as pd
-from sklearn.metrics.pairwise import cosine_similarity
 import scipy.sparse as sp
-from sklearn.metrics import mean_squared_error
-from math import sqrt
-import itertools
-from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
-import random
+
+from math import sqrt
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics.pairwise import cosine_similarity
 
 def novelty(predicted, pop, u, n):
     """
