@@ -1,0 +1,30 @@
+FROM jupyter/minimal-notebook:54462805efcb
+
+WORKDIR /recmetrics
+
+# Set environment variables
+ENV PYTHONFAULTHANDLER=1 \
+  PYTHONUNBUFFERED=1 \
+  PYTHONHASHSEED=random \
+  PIP_NO_CACHE_DIR=off \
+  PIP_DISABLE_PIP_VERSION_CHECK=on \
+  PIP_DEFAULT_TIMEOUT=100 \
+  POETRY_VERSION=1.0.10
+
+# System dependencies
+RUN pip install "poetry==$POETRY_VERSION"
+
+# Copy Poetry requirements to cache them in Docker layer
+COPY poetry.lock pyproject.toml /recmetrics/
+
+# Project initialization
+RUN poetry config virtualenvs.create false \
+    && poetry install
+
+# JupyterLab renderer support
+RUN jupyter labextension install jupyterlab-plotly@4.11.0
+
+# Jupyter widgets extension
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager plotlywidget@4.11.0
+
+COPY . .

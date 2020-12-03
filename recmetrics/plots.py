@@ -1,11 +1,12 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
-from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score
 import plotly.graph_objects as go
+import seaborn as sns
 from funcsigs import signature
+from matplotlib.lines import Line2D
+from sklearn.metrics import (auc, average_precision_score,
+                             precision_recall_curve, roc_curve)
 
 
 def long_tail_plot(df, item_id_column, interaction_type, percentage=None, x_labels=True):
@@ -31,8 +32,7 @@ def long_tail_plot(df, item_id_column, interaction_type, percentage=None, x_labe
         A long tail plot
     """
     #calculate cumulative volumes
-    volume_df = pd.DataFrame(df[item_id_column].value_counts())
-    volume_df.reset_index(inplace=True)
+    volume_df = df[item_id_column].value_counts().reset_index()
     volume_df.columns = [item_id_column, "volume"]
     volume_df[item_id_column] = volume_df[item_id_column].astype(str)
     volume_df['cumulative_volume'] = volume_df['volume'].cumsum()
@@ -50,8 +50,8 @@ def long_tail_plot(df, item_id_column, interaction_type, percentage=None, x_labe
 
     if percentage != None:
         #plot vertical line at the tail location
-        head = volume_df[volume_df.percent_of_total_volume <= percentage]
-        tail = volume_df[volume_df.percent_of_total_volume > percentage]
+        head = volume_df[volume_df["percent_of_total_volume"] <= percentage]
+        tail = volume_df[volume_df["percent_of_total_volume"] > percentage]
         items_in_head = len(head)
         items_in_tail = len(tail)
         plt.axvline(x=items_in_head, color="red",  linestyle='--')
@@ -83,7 +83,7 @@ def long_tail_plot(df, item_id_column, interaction_type, percentage=None, x_labe
     plt.show()
 
 
-def coverage_plot(coverage_scores, model_names):
+def coverage_plot(coverage_scores: list, model_names: list) -> None:
     """
     Plots the coverage for a set of models to compare.
     ----------
@@ -110,7 +110,7 @@ def coverage_plot(coverage_scores, model_names):
 
     plt.show()
 
-def personalization_plot(personalization_scores, model_names):
+def personalization_plot(personalization_scores: list, model_names: list) -> None:
     """
     Plots the personalization for a set of models to compare.
     ----------
@@ -156,7 +156,7 @@ def intra_list_similarity_plot(intra_list_similarity_scores, model_names):
     sns.set_palette(recommender_palette)
 
     #make barplot
-    ax = sns.barplot(x=model_names, y=scores)
+    ax = sns.barplot(x=model_names, y=intra_list_similarity_scores)
 
     #set labels
     ax.set_title("Similarity in %")
@@ -169,7 +169,7 @@ def mark_plot(mark_scores, model_names, k_range):
     Plots the mean average recall at k for a set of models to compare.
     ----------
     mark_scores: list of lists
-        list of list of mar@k scores over k. This lis is in same order as model_names
+        list of list of mar@k scores over k. This list is in same order as model_names
         example: [[0.17, 0.25, 0.76],[0.2, 0.5, 0.74]]
     model_names: list
         list of model names in same order as coverage_scores
@@ -302,20 +302,21 @@ def roc_plot(actual, model_probs, model_names, figsize=(10,10)):
         return ValueError("Can only compare 5 models or less.")
 
     colors = ["#ED2BFF", "#14E2C0", "#FF9F1C", "#5E2BFF","#FC5FA3"]
-    fig,ax = plt.subplots(figsize=figsize)
-    ax.plot([0, 1], [0, 1], 'r--')
-    ax.set_title('Receiver Operating Characteristic Plot')
-    ax.set_ylabel('True Positive Rate')
-    ax.set_xlabel('False Positive Rate')
 
     for m in range(len(model_names)):
-        fpr, tpr, threshold = roc_curve(actual, model_probs[m])
+        fpr, tpr, _ = roc_curve(actual, model_probs[m])
         roc_auc = auc(fpr, tpr)
         ax = sns.lineplot(x=fpr,
                           y=tpr,
                           lw=2,
                           color=colors[m],
                           label = model_names[m] + ' AUC = %0.4f' % roc_auc)
+    
+    ax.plot([0, 1], [0, 1], 'r--')
+    ax.set_title('Receiver Operating Characteristic Plot')
+    ax.set_ylabel('True Positive Rate')
+    ax.set_xlabel('False Positive Rate')
+    
     plt.show()
 
 
