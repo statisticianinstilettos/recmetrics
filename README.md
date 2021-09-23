@@ -1,6 +1,8 @@
 # recmetrics
 A python library of evalulation metrics and diagnostic tools for recommender systems.
 
+_**This library is activly maintained. My goal is to continue to develop this as the main source of recommender metrics in python. Please submit issues, bug reports, feature requests or controbute directly through a pull request. If I do not respond you can ping me directly at longoclaire@gmail.com **_
+
 |Description|Command|
 |:---:|:---|
 |Installation|`pip install recmetrics`|
@@ -208,10 +210,3 @@ Traditional confusion matrix used to evaluate false positive and false negative 
 <img src="images/confusion_matrix.png" alt="PandRcurve" width=400>
 </p>
 
-## Rank Order Analysis
-
-```python
-recmetrics.rank_order_analysis()
-```
-
-coming soon...
