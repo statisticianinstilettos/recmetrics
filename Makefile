@@ -9,7 +9,7 @@ upload: clean
 
 # Remove files from repo
 clean:
-	python setup.py clean --all
+	python3 setup.py clean --all
 	rm -rf *.pyc __pycache__ build dist recmetrics.egg-info recmetrics/__pycache__ tests/__pycache__ tests/reports docs/build .pytest_cache .tox .coverage
 
 # Download MovieLens data to repo
