@@ -21,8 +21,7 @@ setup(
         'pandas',
         'plotly',
         'scikit-learn',
-        'seaborn',
-        'surprise']
+        'seaborn']
     ,
     license='MIT',
     version='0.0.12',
