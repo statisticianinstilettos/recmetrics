@@ -189,11 +189,9 @@ def personalization(predicted: List[list]) -> float:
     #calculate similarity for every user's recommendation list
     similarity = cosine_similarity(X=rec_matrix_sparse, dense_output=False)
 
-    #get indicies for upper right triangle w/o diagonal
-    upper_right = np.triu_indices(similarity.shape[0], k=1)
-
     #calculate average similarity
-    personalization = np.mean(similarity[upper_right])
+    dim = similarity.shape[0]
+    personalization = (similarity.sum() - dim) / (dim * (dim - 1))
     return 1-personalization
 
 def _single_list_similarity(predicted: list, feature_df: pd.DataFrame, u: int) -> float:
