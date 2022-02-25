@@ -1,7 +1,7 @@
 # recmetrics
 A python library of evalulation metrics and diagnostic tools for recommender systems.
 
-_**This library is activly maintained. My goal is to continue to develop this as the main source of recommender metrics in python. Please submit issues, bug reports, feature requests or controbute directly through a pull request. If I do not respond you can ping me directly at longoclaire@gmail.com **_
+_**This library is actively maintained. My goal is to continue to develop this as the main source of recommender metrics in python. Please submit issues, bug reports, feature requests or contribute directly through a pull request. If I do not respond you can ping me directly at longoclaire@gmail.com **_
 
 |Description|Command|
 |:---:|:---|
@@ -9,7 +9,7 @@ _**This library is activly maintained. My goal is to continue to develop this as
 |Notebook Demo|`make run_demo`|
 |Test|`make test`|
 
-Full documentation coming soon.... In the interm, the python notebook in this repo, `example.ipynb`, contains examples of these plots and metrics in action using the [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/20m/). You can also view my [Medium Article](https://towardsdatascience.com/evaluation-metrics-for-recommender-systems-df56c6611093).
+Full documentation coming soon.... In the interim, the python notebook in this repo, `example.ipynb`, contains examples of these plots and metrics in action using the [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/20m/). You can also view my [Medium Article](https://towardsdatascience.com/evaluation-metrics-for-recommender-systems-df56c6611093).
 
 <i>This library is an open source project. The goal is to create a go-to source for metrics related to recommender systems. I have begun by adding metrics and plots I found useful during my career as a Data Scientist at a retail company, and encourage the community to contribute. If you would like to see a new metric in this package, or find a bug, or have suggestions for improvement, please contribute!
 </i>
@@ -41,7 +41,7 @@ recmetrics.mark_plot()
 
 recmetrics.mapk_plot()
 ```
-Mean Average Recall at K (Mar@k) measures the recall at the kth recommendations. Mar@k considers the order of recommendations, and penalizes correct recommendations if based on the order of the recommendations. Map@k and Mar@k are ideal for evaluating an ordered list of recommendations. There is a fantastic implmentation of Mean Average Precision at K (Map@k) available [here](https://github.com/benhamner/Metrics), so I have not included it in this repo.
+Mean Average Recall at K (Mar@k) measures the recall at the kth recommendations. Mar@k considers the order of recommendations, and penalizes correct recommendations if based on the order of the recommendations. Map@k and Mar@k are ideal for evaluating an ordered list of recommendations. There is a fantastic implementation of Mean Average Precision at K (Map@k) available [here](https://github.com/benhamner/Metrics), so I have not included it in this repo.
 
 <p align="center">
 <img src="images/mark_plot.png" alt="Mar@k" width=600>
@@ -79,7 +79,7 @@ to the user. For this purpose the catalog coverage function take also as paramet
 recmetrics.novelty()
 ```
 
-Novelty measures the capacity of recommender system to propose novel and unexpected items which a user is unlikely to know about already. It uses the self-information of the recommended item and it calculates the mean self-information per top-N recommended list and averages them over all users. 
+Novelty measures the capacity of a recommender system to propose novel and unexpected items which a user is unlikely to know about already. It uses the self-information of the recommended item and it calculates the mean self-information per top-N recommended list and averages them over all users. 
 
 <p align="center">
 <img src="images/novelty.gif" alt="Coverage Equation" width=200>
