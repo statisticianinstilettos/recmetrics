@@ -128,7 +128,7 @@ recmetrics.mse()
 recmetrics.rmse()
 ```
 
-Mean Squared Error (MSE) and Root Mean Squared Error (RMSE) are used to evaluate the accuracy of predicted values yhat such as ratings compared to the true value, y.
+Mean Squared Error (MSE) and Root Mean Squared Error (RMSE) are used to evaluate the accuracy of predicted values that such as ratings compared to the true value, y.
 These can also be used to evalaute the reconstruction of a ratings matrix.
 
 <p align="center">
