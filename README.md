@@ -59,7 +59,7 @@ recmetrics.catalog_coverage()
 recmetrics.coverage_plot()
 ```
 
-Coverage is the percent of items that the recommender is able to recommend. It referred as prediction coverage and it's depicted by the next formula.
+Coverage is the percent of items that the recommender is able to recommend. It is depicted by this formula.
 
 <p align="center">
 <img src="images/coverage_equation.gif" alt="Coverage Equation" width=200>
