@@ -23,7 +23,7 @@ setup(
         'scikit-learn',
         'seaborn'],
     license='MIT',
-    version='0.0.12',
+    version='0.1.1',
     description='Evaluation metrics for recommender systems',
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
