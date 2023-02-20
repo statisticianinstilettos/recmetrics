@@ -139,6 +139,68 @@ def _ark(actual: list, predicted: list, k=10) -> int:
 
     return score / len(actual)
 
+def _pk(actual: list, predicted: list, k) -> float:
+    """
+    Computes precision at k.
+    Parameters
+    ----------
+    actual : list
+        A list of actual items to be predicted
+    predicted : list
+        An ordered list of predicted items
+    k : int
+        Number of predictions to consider
+    Returns:
+    -------
+    score : float
+        The precision at k.
+    """
+
+    if len(predicted) > k:
+        predicted = predicted[:k]
+
+    if not predicted or not actual:
+        return 0.0
+        
+    return sum([item in actual for item in set(predicted)]) / len(predicted)   
+
+def _apk(actual: list, predicted: list, k=10) -> float:
+    """
+    Computes the average precision at k.
+    Parameters
+    ----------
+    actual : list
+        A list of actual items to be predicted
+    predicted : list
+        An ordered list of predicted items
+    k : int, default = 10
+        Number of predictions to consider
+    Returns:
+    -------
+    score : float
+        The average precision at k.
+    """
+
+    if len(predicted) > k:
+        predicted = predicted[:k]
+
+    if not predicted or not actual:
+        return 0
+
+    score = 0
+    true_positives = 0
+
+    for i, p in enumerate(predicted):
+        if p in actual and p not in predicted[:i]:
+            score += _pk(actual, predicted, i + 1)
+            true_positives += 1
+    
+    if score == 0:
+        return 0
+    
+    return score / true_positives
+
+
 def mark(actual: List[list], predicted: List[list], k=10) -> int:
     """
     Computes the mean average recall at k.
@@ -156,6 +218,24 @@ def mark(actual: List[list], predicted: List[list], k=10) -> int:
             The mean average recall at k (mar@k)
     """
     return np.mean([_ark(a,p,k) for a,p in zip(actual, predicted)])
+
+def mapk(actual: List[list], predicted: List[list], k=10) -> int:
+    """
+    Computes the mean average precision at k.
+    Parameters
+    ----------
+    actual : a list of lists
+        Actual items to be predicted
+        example: [['A', 'B', 'X'], ['A', 'B', 'Y']]
+    predicted : a list of lists
+        Ordered predictions
+        example: [['X', 'Y', 'Z'], ['X', 'Y', 'Z']]
+    Returns:
+    -------
+        mapk: int
+            The mean average precision at k (map@k)
+    """
+    return np.mean([_apk(a,p,k) for a,p in zip(actual, predicted)])
 
 def personalization(predicted: List[list]) -> float:
     """

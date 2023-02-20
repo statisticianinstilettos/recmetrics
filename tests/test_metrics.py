@@ -80,7 +80,7 @@ class TestMetrics(unittest.TestCase):
 
     def test_mark(self):
         """
-        Test mean absolute recall @ k (MAPK) function
+        Test mean absolute recall @ k (MARK) function
         """
 
         # GIVEN test MAR@K metrics
@@ -95,8 +95,164 @@ class TestMetrics(unittest.TestCase):
             k=test_k
         )
 
-        # THEN the mean absolute recall @ k should equal the expected value
-        self.assertEqual(mean_abs_recall_k, 0.25)
+
+    def test_mapk(self):
+        """
+        Test mean absolute precision @ k (MAPK) function
+        """
+
+        # GIVEN test MAP@K metrics
+        test_actual = [['A', 'B', 'X'], ['A', 'B', 'Y']]
+        test_predicted = [['X', 'Y', 'Z'], ['A', 'Z', 'B']]
+        test_k = 5
+
+        # WHEN metrics.mapk is run
+        mean_abs_precision_k = metrics.mapk(
+            actual=test_actual,
+            predicted=test_predicted,
+            k=test_k
+        )
+
+        # THEN the mean absolute precision @ k should the average
+        #  precision over the two sets of predictions
+        self.assertEqual(mean_abs_precision_k, ((1) + ((1 + (2/3)) / 2)) / 2)
+
+    def test_pk(self):
+        """
+        Test precision@k computation
+        """
+
+        self.assertEqual(
+            metrics._pk(
+                actual = ['a', 'b', 'c'],
+                predicted = ['a', 'z', 'b'],
+                k = 3
+            ),
+            2/3
+        )
+
+
+    def test_apk(self):
+        """
+        Test mean absolute precision @ k (APK) function
+        """
+
+        ## Predictions align with Stanford slides
+        ## https://web.stanford.edu/class/cs276/handouts/EvaluationNew-handout-1-per.pdf
+        self.assertEqual(
+            metrics._apk(
+                ['a', 'b', 'c', 'd', 'e', 'f'],
+                ['a', 'x', 'b', 'c', 'd', 'e', 'q', 'y', 'z', 'f'],
+                10
+            ),
+            0.7749999999999999
+        )
+
+
+        actual = ["A", "B", "X"]
+        predicted = ["X", "Y", "Z"]
+
+        self.assertEqual(
+            metrics._apk(actual, predicted, 1),
+            1
+        )
+        self.assertEqual(
+            metrics._apk(actual, predicted, 2),
+            1
+        )
+        self.assertEqual(
+            metrics._apk(actual, predicted, 3),
+            1
+        )
+
+        actual = ["A", "B", "X"]
+        predicted = ["foo", "B", "A"]
+
+        self.assertEqual(
+            metrics._apk(actual, predicted, 1),
+            0
+        )
+        self.assertEqual(
+            metrics._apk(actual, predicted, 2),
+            1/2
+        )
+        self.assertEqual(
+            metrics._apk(actual, predicted, 3),
+            ((1/2) + (2/3)) / 2
+        )
+
+        ## You shouldn't get extra credit for
+        ##  predicting the same thing twice
+        actual = ["A", "B", "X"]
+        predicted = ["A", "A", "Z"]
+
+        self.assertEqual(
+            metrics._apk(actual, predicted, 3),
+            1
+        )
+
+        ## If k is less than the number of predictions
+        ##  made, we effectively "don't know" about
+        ##  the other predictions
+        actual = ["A", "B", "X"]
+        predicted = ["A", "B", "Z"]
+
+        self.assertEqual(
+            metrics._apk(actual, predicted, 3),
+            1
+        )
+
+        ## High K values don't change things
+        actual = ["A", "B", "X"]
+        predicted = ["A", "A", "Z"]
+
+        self.assertEqual(
+            metrics._apk(actual, predicted, 3),
+            metrics._apk(actual, predicted, 1000)
+        )
+
+        ## Returns None if no predictions exist
+        actual = ["A", "B", "X"]
+        predicted = []
+
+        self.assertEqual(
+            metrics._apk(actual, predicted, 1),
+            0
+        )
+
+        self.assertEqual(
+            metrics._apk(actual, predicted, 3),
+            0
+        )
+
+        self.assertEqual(
+            metrics._apk(actual, predicted, 100),
+            0
+        )
+
+        ## Returns correctly for single prediction
+        actual = ["A", "B", "X"]
+
+        self.assertEqual(
+            metrics._apk(actual, ["B"], 1),
+            1
+        )
+
+        self.assertEqual(
+            metrics._apk(actual, ["B"], 3),
+            1
+        )
+
+        self.assertEqual(
+            metrics._apk(actual, ["Z"], 100),
+            0
+        )
+
+        self.assertEqual(
+            metrics._apk(actual, ["B", "B", "B"], 100),
+            1
+        )
+
 
     def test_personalization(self):
         """
