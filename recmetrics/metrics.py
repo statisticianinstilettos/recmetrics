@@ -189,7 +189,8 @@ def _apk(actual: list, predicted: list, k=10) -> float:
 
     for i, p in enumerate(predicted):
         if p in actual and p not in predicted[:i]:
-            score += _pk(actual, predicted, i + 1)
+            max_ix = min(i + 1, len(predicted))
+            score += _precision(predicted[:max_ix], actual)
             true_positives += 1
     
     if score == 0:
@@ -387,6 +388,10 @@ def make_confusion_matrix(y: list, yhat: list) -> None:
     plt.yticks([0,1], [1,0])
     plt.show()
 
+def _precision(predicted, actual):
+    prec = [value for value in predicted if value in actual]
+    prec = float(len(prec)) / float(len(predicted))
+    return prec
 
 def recommender_precision(predicted: List[list], actual: List[list]) -> int:
     """
@@ -402,12 +407,8 @@ def recommender_precision(predicted: List[list], actual: List[list]) -> int:
     -------
         precision: int
     """
-    def calc_precision(predicted, actual):
-        prec = [value for value in predicted if value in actual]
-        prec = np.round(float(len(prec)) / float(len(predicted)), 4)
-        return prec
-
-    precision = np.mean(list(map(calc_precision, predicted, actual)))
+ 
+    precision = np.mean(list(map(lambda x, y: np.round(_precision(x,y), 4), predicted, actual)))
     return precision
 
 
