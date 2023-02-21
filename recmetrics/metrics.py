@@ -139,27 +139,6 @@ def _ark(actual: list, predicted: list, k=10) -> float:
 
     return score / len(actual)
 
-def _pk(actual: list, predicted: list, k) -> float:
-    """
-    Computes precision at k.
-    Parameters
-    ----------
-    actual : list
-        A list of actual items to be predicted
-    predicted : list
-        An ordered list of predicted items
-    k : int
-        Number of predictions to consider
-    Returns:
-    -------
-    score : float
-        The precision at k.
-    """
-
-    if len(predicted) > k:
-        predicted = predicted[:k]
-        
-    return sum([item in actual for item in set(predicted)]) / len(predicted)   
 
 def _apk(actual: list, predicted: list, k=10) -> float:
     """
