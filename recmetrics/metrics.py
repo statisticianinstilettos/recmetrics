@@ -158,9 +158,6 @@ def _pk(actual: list, predicted: list, k) -> float:
 
     if len(predicted) > k:
         predicted = predicted[:k]
-
-    if not predicted or not actual:
-        return 0.0
         
     return sum([item in actual for item in set(predicted)]) / len(predicted)   
 
