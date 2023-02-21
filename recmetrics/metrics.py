@@ -107,7 +107,7 @@ def catalog_coverage(predicted: List[list], catalog: list, k: int) -> float:
     catalog_coverage = round(L_predictions/(len(catalog)*1.0)*100,2)
     return catalog_coverage
 
-def _ark(actual: list, predicted: list, k=10) -> int:
+def _ark(actual: list, predicted: list, k=10) -> float:
     """
     Computes the average recall at k.
     Parameters
@@ -120,7 +120,7 @@ def _ark(actual: list, predicted: list, k=10) -> int:
         Number of predictions to consider
     Returns:
     -------
-    score : int
+    score : float
         The average recall at k.
     """
     if len(predicted)>k:
@@ -201,7 +201,7 @@ def _apk(actual: list, predicted: list, k=10) -> float:
     return score / true_positives
 
 
-def mark(actual: List[list], predicted: List[list], k=10) -> int:
+def mark(actual: List[list], predicted: List[list], k=10) -> float:
     """
     Computes the mean average recall at k.
     Parameters
@@ -214,7 +214,7 @@ def mark(actual: List[list], predicted: List[list], k=10) -> int:
         example: [['X', 'Y', 'Z'], ['X', 'Y', 'Z']]
     Returns:
     -------
-        mark: int
+        mark: float
             The mean average recall at k (mar@k)
     """
     return np.mean([_ark(a,p,k) for a,p in zip(actual, predicted)])
