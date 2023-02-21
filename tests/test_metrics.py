@@ -96,27 +96,6 @@ class TestMetrics(unittest.TestCase):
         )
 
 
-    def test_mapk(self):
-        """
-        Test mean absolute precision @ k (MAPK) function
-        """
-
-        # GIVEN test MAP@K metrics
-        test_actual = [['A', 'B', 'X'], ['A', 'B', 'Y']]
-        test_predicted = [['X', 'Y', 'Z'], ['A', 'Z', 'B']]
-        test_k = 5
-
-        # WHEN metrics.mapk is run
-        mean_abs_precision_k = metrics.mapk(
-            actual=test_actual,
-            predicted=test_predicted,
-            k=test_k
-        )
-
-        # THEN the mean absolute precision @ k should the average
-        #  precision over the two sets of predictions
-        self.assertEqual(mean_abs_precision_k, ((1) + ((1 + (2/3)) / 2)) / 2)
-
     def test_pk(self):
         """
         Test precision@k computation
@@ -423,3 +402,19 @@ class TestMetrics(unittest.TestCase):
 
         # THEN the expected value should equal 0.53254 within three decimal places
         self.assertAlmostEqual(recommender_mapk, 0.53254, places=5)
+        
+                # GIVEN test MAP@K metrics
+        test_actual = [['A', 'B', 'X'], ['A', 'B', 'Y']]
+        test_predicted = [['X', 'Y', 'Z'], ['A', 'Z', 'B']]
+        test_k = 5
+
+        # WHEN metrics.mapk is run
+        mean_abs_precision_k = metrics.mapk(
+            actual=test_actual,
+            predicted=test_predicted,
+            k=test_k
+        )
+
+        # THEN the mean absolute precision @ k should the average
+        #  precision over the two sets of predictions
+        self.assertEqual(mean_abs_precision_k, ((1) + ((1 + (2/3)) / 2)) / 2)
