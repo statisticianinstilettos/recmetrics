@@ -156,12 +156,11 @@ def _apk(actual: list, predicted: list, k=10) -> float:
     score : float
         The average precision at k.
     """
-
-    if len(predicted) > k:
-        predicted = predicted[:k]
-
     if not predicted or not actual:
         return 0.0
+    
+    if len(predicted) > k:
+        predicted = predicted[:k]
 
     score = 0.0
     true_positives = 0.0
@@ -176,7 +175,6 @@ def _apk(actual: list, predicted: list, k=10) -> float:
         return 0.0
     
     return score / true_positives
-
 
 def mark(actual: List[list], predicted: List[list], k=10) -> float:
     """
@@ -195,35 +193,6 @@ def mark(actual: List[list], predicted: List[list], k=10) -> float:
             The mean average recall at k (mar@k)
     """
     return np.mean([_ark(a,p,k) for a,p in zip(actual, predicted)])
-
-def _apk(actual: list, predicted: list, k: int=10) -> float:
-    """
-    Computes the average precision at k.
-    Parameters
-    ----------
-    actual : list
-        A list of actual items to be predicted
-    predicted : list
-        An ordered list of predicted items
-    k : int, default = 10
-        Number of predictions to consider
-    Returns:
-    -------
-    score : float
-        The average precision at k.
-    """
-    if not actual:
-        return 0.0
-    if len(predicted)>k:
-        predicted = predicted[:k]
-    score = 0.0
-    num_hits = 0.0
-    for i,p in enumerate(predicted):
-        if p in actual:
-            num_hits += 1.0
-            score += num_hits / (i+1.0)
-    score /= len(actual)
-    return score
 
 def mapk(actual: List[list], predicted: List[list], k: int=10) -> float:
     """
