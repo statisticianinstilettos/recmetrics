@@ -107,7 +107,7 @@ def catalog_coverage(predicted: List[list], catalog: list, k: int) -> float:
     catalog_coverage = round(L_predictions/(len(catalog)*1.0)*100,2)
     return catalog_coverage
 
-def _ark(actual: list, predicted: list, k=10) -> int:
+def _ark(actual: list, predicted: list, k=10) -> float:
     """
     Computes the average recall at k.
     Parameters
@@ -120,7 +120,7 @@ def _ark(actual: list, predicted: list, k=10) -> int:
         Number of predictions to consider
     Returns:
     -------
-    score : int
+    score : float
         The average recall at k.
     """
     if len(predicted)>k:
@@ -139,7 +139,46 @@ def _ark(actual: list, predicted: list, k=10) -> int:
 
     return score / len(actual)
 
-def mark(actual: List[list], predicted: List[list], k=10) -> int:
+
+def _apk(actual: list, predicted: list, k=10) -> float:
+    """
+    Computes the average precision at k.
+    Parameters
+    ----------
+    actual : list
+        A list of actual items to be predicted
+    predicted : list
+        An ordered list of predicted items
+    k : int, default = 10
+        Number of predictions to consider
+    Returns:
+    -------
+    score : float
+        The average precision at k.
+    """
+
+    if len(predicted) > k:
+        predicted = predicted[:k]
+
+    if not predicted or not actual:
+        return 0.0
+
+    score = 0.0
+    true_positives = 0.0
+
+    for i, p in enumerate(predicted):
+        if p in actual and p not in predicted[:i]:
+            max_ix = min(i + 1, len(predicted))
+            score += _precision(predicted[:max_ix], actual)
+            true_positives += 1
+    
+    if score == 0.0:
+        return 0.0
+    
+    return score / true_positives
+
+
+def mark(actual: List[list], predicted: List[list], k=10) -> float:
     """
     Computes the mean average recall at k.
     Parameters
@@ -152,7 +191,7 @@ def mark(actual: List[list], predicted: List[list], k=10) -> int:
         example: [['X', 'Y', 'Z'], ['X', 'Y', 'Z']]
     Returns:
     -------
-        mark: int
+        mark: float
             The mean average recall at k (mar@k)
     """
     return np.mean([_ark(a,p,k) for a,p in zip(actual, predicted)])
@@ -203,6 +242,7 @@ def mapk(actual: List[list], predicted: List[list], k: int=10) -> float:
             The mean average precision at k (map@k)
     """
     assert len(actual) == len(predicted), "Length mismatched"
+    
     return np.mean([_apk(a,p,k) for a,p in zip(actual, predicted)])
 
 def personalization(predicted: List[list]) -> float:
@@ -358,6 +398,10 @@ def make_confusion_matrix(y: list, yhat: list) -> None:
     plt.yticks([0,1], [1,0])
     plt.show()
 
+def _precision(predicted, actual):
+    prec = [value for value in predicted if value in actual]
+    prec = float(len(prec)) / float(len(predicted))
+    return prec
 
 def recommender_precision(predicted: List[list], actual: List[list]) -> int:
     """
@@ -373,12 +417,8 @@ def recommender_precision(predicted: List[list], actual: List[list]) -> int:
     -------
         precision: int
     """
-    def calc_precision(predicted, actual):
-        prec = [value for value in predicted if value in actual]
-        prec = np.round(float(len(prec)) / float(len(predicted)), 4)
-        return prec
-
-    precision = np.mean(list(map(calc_precision, predicted, actual)))
+ 
+    precision = np.mean(list(map(lambda x, y: np.round(_precision(x,y), 4), predicted, actual)))
     return precision
 
 
