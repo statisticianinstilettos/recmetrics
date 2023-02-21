@@ -161,10 +161,10 @@ def _apk(actual: list, predicted: list, k=10) -> float:
         predicted = predicted[:k]
 
     if not predicted or not actual:
-        return 0
+        return 0.0
 
-    score = 0
-    true_positives = 0
+    score = 0.0
+    true_positives = 0.0
 
     for i, p in enumerate(predicted):
         if p in actual and p not in predicted[:i]:
@@ -172,8 +172,8 @@ def _apk(actual: list, predicted: list, k=10) -> float:
             score += _precision(predicted[:max_ix], actual)
             true_positives += 1
     
-    if score == 0:
-        return 0
+    if score == 0.0:
+        return 0.0
     
     return score / true_positives
 
