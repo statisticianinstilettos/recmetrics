@@ -391,3 +391,35 @@ class TestMetrics(unittest.TestCase):
 
         # THEN the expected value should equal 0.333 within three decimal places
         self.assertAlmostEqual(recommender_recall, 0.333, places=3)
+
+    def test_mapk(self):
+        """
+        Test mean average precision @ k
+        """
+        # First case, binary
+        # GIVEN predictions and actual values
+        test_predicted = [[1,0,1,0,0,1,0,0,1,1], [0,2,0,0,2,0,2,0,0,0]]
+        test_actual = [[1,1,1,1,1], [2,2,2]]
+
+        # WHEN metrics.mapk is run
+        recommender_mapk = metrics.mapk(
+            predicted = test_predicted,
+            actual = test_actual,
+            k = 10)
+
+        # THEN the expected value should equal 0.53254 within three decimal places
+        self.assertAlmostEqual(recommender_mapk, 0.53254, places=5)
+
+        # Second case, multi class
+        # GIVEN predictions and actual values
+        test_predicted = [[5,0,4,0,0,2,0,0,3,1], [0,7,0,0,6,0,8,0,0,0]]
+        test_actual = [[1,2,3,4,5], [6,7,8]]
+
+        # WHEN metrics.mapk is run
+        recommender_mapk = metrics.mapk(
+            predicted = test_predicted,
+            actual = test_actual,
+            k = 10)
+
+        # THEN the expected value should equal 0.53254 within three decimal places
+        self.assertAlmostEqual(recommender_mapk, 0.53254, places=5)
