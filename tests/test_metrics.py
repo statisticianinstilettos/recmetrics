@@ -363,6 +363,14 @@ class TestMetrics(unittest.TestCase):
         """
         Test mean average precision @ k
         """
+
+        ## TODO: Fix this test
+        ## Currently it's failing due to (hypothesized reason)
+        ##  not giving "extra credit" for multiple correct but repeated
+        ##  predictions. For instance, if the actual is ["A", "B"] and
+        ##  you predict "A" ten times, the nine "A" predictions after
+        ##  the first one are "wrong" since they're repeats.
+        
         # First case, binary
         # GIVEN predictions and actual values
         # test_predicted = [[1,0,1,0,0,1,0,0,1,1], [0,2,0,0,2,0,2,0,0,0]]
