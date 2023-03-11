@@ -9,6 +9,7 @@ import pandas as pd
 import scipy.sparse as sp
 from sklearn.metrics import confusion_matrix, mean_squared_error
 from sklearn.metrics.pairwise import cosine_similarity
+import warnings
 
 
 def novelty(predicted: List[list], pop: dict, u: int, n: int) -> (float, list):
@@ -49,7 +50,7 @@ def novelty(predicted: List[list], pop: dict, u: int, n: int) -> (float, list):
     novelty = sum(mean_self_information)/k
     return novelty, mean_self_information
 
-def prediction_coverage(predicted: List[list], catalog: list) -> float:
+def prediction_coverage(predicted: List[list], catalog: list, unseen_warning: bool=False) -> float:
     """
     Computes the prediction coverage for a list of recommendations
     Parameters
@@ -60,6 +61,10 @@ def prediction_coverage(predicted: List[list], catalog: list) -> float:
     catalog: list
         A list of all unique items in the training data
         example: ['A', 'B', 'C', 'X', 'Y', Z]
+    unseen_warn: bool
+        when prediction gives any item unseen in catalog: 
+            (1) ignore the unseen item and warn
+            (2) or raise an exception.
     Returns
     ----------
     prediction_coverage:
@@ -71,9 +76,24 @@ def prediction_coverage(predicted: List[list], catalog: list) -> float:
     Beyond accuracy: evaluating recommender systems by coverage and serendipity.
     In Proceedings of the fourth ACM conference on Recommender systems (pp. 257-260). ACM.
     """
+    
+    unique_items_catalog = set(catalog)
+    if len(catalog)!=len(unique_items_catalog):
+        raise AssertionError("Duplicated items in catalog")
+
     predicted_flattened = [p for sublist in predicted for p in sublist]
-    unique_predictions = len(set(predicted_flattened))
-    prediction_coverage = round(unique_predictions/(len(catalog)* 1.0)*100,2)
+    unique_items_pred = set(predicted_flattened)
+    
+    if not unique_items_pred.issubset(unique_items_catalog):
+        if unseen_warning:
+            warnings.warn("There are items in predictions but unseen in catalog. "
+                "They are ignored from prediction_coverage calculation")
+            unique_items_pred = unique_items_pred.intersection(unique_items_catalog)
+        else:
+            raise AssertionError("There are items in predictions but unseen in catalog.")
+    
+    num_unique_predictions = len(unique_items_pred)
+    prediction_coverage = round(num_unique_predictions/(len(catalog)* 1.0)* 100, 2)
     return prediction_coverage
 
 def catalog_coverage(predicted: List[list], catalog: list, k: int) -> float:
@@ -192,6 +212,9 @@ def mark(actual: List[list], predicted: List[list], k=10) -> float:
         mark: float
             The mean average recall at k (mar@k)
     """
+    if len(actual) != len(predicted):
+        raise AssertionError("Length mismatched")
+
     return np.mean([_ark(a,p,k) for a,p in zip(actual, predicted)])
 
 def mapk(actual: List[list], predicted: List[list], k: int=10) -> float:
@@ -210,7 +233,8 @@ def mapk(actual: List[list], predicted: List[list], k: int=10) -> float:
         mark: float
             The mean average precision at k (map@k)
     """
-    assert len(actual) == len(predicted), "Length mismatched"
+    if len(actual) != len(predicted):
+        raise AssertionError("Length mismatched")
     
     return np.mean([_apk(a,p,k) for a,p in zip(actual, predicted)])
 

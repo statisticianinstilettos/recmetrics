@@ -49,14 +49,45 @@ class TestMetrics(unittest.TestCase):
         # GIVEN predictions and coverage lists
         test_predicted = [['X', 'Y', 'Z'], ['X', 'Y', 'Z']]
         test_catalog = ['A', 'B', 'C', 'X', 'Y', 'Z']
-
         # WHEN metrics.prediction_coverage is run
         prediction_coverage = metrics.prediction_coverage(
             predicted = test_predicted,
-            catalog = test_catalog)
-
+            catalog = test_catalog,
+            unseen_warning = False)
         # THEN the prediction coverage should equal an expected value of 50
         self.assertEqual(prediction_coverage, 50.)
+        
+        # GIVEN predictions and coverage lists
+        test_predicted = [['X', 'Y', 'Z'], ['W', 'Y', 'Z']]
+        test_catalog = ['A', 'B', 'C', 'X', 'Y', 'Z']
+        # WHEN metrics.prediction_coverage is run
+        # THEN should raise Assertion Error
+        self.assertRaises(
+            AssertionError, metrics.prediction_coverage,
+            test_predicted, test_catalog, False
+        )
+
+        # GIVEN predictions and coverage lists
+        test_predicted = [['X', 'Y', 'Z'], ['W', 'Y', 'Z']]
+        test_catalog = ['A', 'B', 'C', 'X', 'Y', 'Z']
+        # WHEN metrics.prediction_coverage is run
+        prediction_coverage = metrics.prediction_coverage(
+            predicted = test_predicted,
+            catalog = test_catalog,
+            unseen_warning = True)
+        # THEN the prediction coverage should equal an expected value of 50
+        # also a warning is given
+        self.assertEqual(prediction_coverage, 50.)
+
+        # GIVEN predictions and coverage lists
+        test_predicted = [['X', 'Y', 'Z'], ['W', 'Y', 'Z']]
+        test_catalog = ['A', 'A', 'C', 'X', 'Y', 'Z']
+        # WHEN metrics.prediction_coverage is run
+        # THEN should raise Assertion Error
+        self.assertRaises(
+            AssertionError, metrics.prediction_coverage,
+            test_predicted, test_catalog, False
+        )
 
     def test_catalog_coverage(self):
         """
