@@ -41,7 +41,7 @@ recmetrics.mark_plot()
 
 recmetrics.mapk_plot()
 ```
-Mean Average Recall at K (Mar@k) measures the recall at the kth recommendations. Mar@k considers the order of recommendations, and penalizes correct recommendations based on the order of the recommendations. Map@k and Mar@k are ideal for evaluating an ordered list of recommendations. There is a fantastic implementation of Mean Average Precision at K (Map@k) available [here](https://github.com/benhamner/Metrics), so I have not included it in this repo.
+Mean Average Recall at K (Mar@k) measures the recall at the kth recommendations. Mar@k considers the order of recommendations, and penalizes correct recommendations based on the order of the recommendations. Map@k and Mar@k are ideal for evaluating an ordered list of recommendations. .
 
 <p align="center">
 <img src="images/mark_plot.png" alt="Mar@k" width=600>
