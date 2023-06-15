@@ -1,9 +1,9 @@
-FROM python:3.7.6-slim
+FROM python:3.8.17-slim
 
 RUN apt-get update -yqq &&\
-    apt-get upgrade -yqq &&\
-    apt-get install gcc libenchant1c2a -yqq --fix-missing
-    
+  apt-get upgrade -yqq &&\
+  apt-get install gcc -yqq --fix-missing
+
 WORKDIR /recmetrics
 
 ENV PYTHONFAULTHANDLER=1 \
@@ -12,7 +12,7 @@ ENV PYTHONFAULTHANDLER=1 \
   PIP_NO_CACHE_DIR=off \
   PIP_DISABLE_PIP_VERSION_CHECK=on \
   PIP_DEFAULT_TIMEOUT=100 \
-  POETRY_VERSION=1.0.10
+  POETRY_VERSION=1.5.1
 
 # System dependencies
 RUN pip install "poetry==$POETRY_VERSION"
@@ -22,7 +22,7 @@ COPY poetry.lock pyproject.toml /recmetrics/
 
 # Project initialization
 RUN poetry config virtualenvs.create false \
-    && poetry install
+  && poetry install
 
 # Display Pytest output in color
 ENV PYTEST_ADDOPTS="--color=yes"

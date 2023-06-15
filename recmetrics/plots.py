@@ -40,7 +40,7 @@ def long_tail_plot(df, item_id_column, interaction_type, percentage=None, x_labe
 
     #line plot of cumulative volume
     x=range(0,len(volume_df))
-    ax = sns.lineplot(x, y="volume", data=volume_df, color="black")
+    ax = sns.lineplot(x=x, y="volume", data=volume_df, color="black")
     plt.xticks(x)
 
     #set labels
