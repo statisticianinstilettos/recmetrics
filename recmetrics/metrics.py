@@ -238,7 +238,7 @@ def mapk(actual: List[list], predicted: List[list], k: int=10) -> float:
     
     return np.mean([_apk(a,p,k) for a,p in zip(actual, predicted)])
 
-def personalization(predicted: List[list]) -> float:
+def personalization(predicted: list, n_too_large=1000, aggregation_type='median') -> float:
     """
     Personalization measures recommendation similarity across users.
     A high score indicates good personalization (user's lists of recommendations are different).
@@ -253,8 +253,11 @@ def personalization(predicted: List[list]) -> float:
     -------
         The personalization score for all recommendations.
     """
+    if aggregation_type not in ['median', 'mean']:
+        raise ValueError("Aggregation function not recognised")
+    agg_func = median if aggregation_type=='median' else mean
 
-    def make_rec_matrix(predicted: List[list]) -> sp.csr_matrix:
+    def make_rec_matrix(predicted: list) -> sp.csr_matrix:
         df = pd.DataFrame(data=predicted).reset_index().melt(
             id_vars='index', value_name='item',
         )
@@ -263,17 +266,26 @@ def personalization(predicted: List[list]) -> float:
         rec_matrix = sp.csr_matrix(df.values)
         return rec_matrix
 
-    #create matrix for recommendations
+    def calculate_personalization(predicted):
+        # create matrix for recommendations
+        rec_matrix_sparse = make_rec_matrix(predicted)
+        # calculate similarity for every user's recommendation list
+        similarity = cosine_similarity(X=rec_matrix_sparse, dense_output=False)
+        # calculate average similarity
+        dim = similarity.shape[0]
+        personalization = 1 - ((similarity.sum() - dim) / (dim * (dim - 1)))
+        return personalization
+
     predicted = np.array(predicted)
-    rec_matrix_sparse = make_rec_matrix(predicted)
+    # If it fits in memory, calculate personalization on the whole array
+    if len(predicted) < n_too_large:
+        return calculate_personalization(predicted)
+    subsample_scores = []
+    for i in range(0, len(predicted), n_too_large):
+        personalization = calculate_personalization(predicted[i:i+n_too_large])
+        subsample_scores.append(personalization)
 
-    #calculate similarity for every user's recommendation list
-    similarity = cosine_similarity(X=rec_matrix_sparse, dense_output=False)
-
-    #calculate average similarity
-    dim = similarity.shape[0]
-    personalization = (similarity.sum() - dim) / (dim * (dim - 1))
-    return 1-personalization
+    return agg_func(subsample_scores)
 
 def _single_list_similarity(predicted: list, feature_df: pd.DataFrame, u: int) -> float:
     """
